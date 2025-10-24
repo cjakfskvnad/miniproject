@@ -11,7 +11,7 @@ import wandb
 from env.sequence_env import SequenceGenerationEnv
 from model.mini_transformer import MiniTransformer
 
-import debugpy
+
 
 # Enable debugpy for remote debugging
 # debugpy.listen(("localhost", 5678))
@@ -35,7 +35,8 @@ class DQNAgent:
         epsilon_decay=0.995,
         buffer_size=10000,
         batch_size=32,
-        target_update_freq=10
+        target_update_freq=10,
+        use_double_dqn=True
     ):
         """
         Args:
@@ -49,6 +50,7 @@ class DQNAgent:
             buffer_size: Replay buffer size
             batch_size: Batch size for training
             target_update_freq: Frequency to update target network (in episodes)
+            use_double_dqn: Whether to use Double DQN (default: True)
         """
         # Use MPS (Metal Performance Shaders) for Mac, CUDA for NVIDIA, else CPU
         if torch.backends.mps.is_available():
@@ -61,16 +63,9 @@ class DQNAgent:
         # Q-network (policy network)
         self.q_network = model.to(self.device)
 
-        # Target network
-        self.target_network = MiniTransformer(
-            vocab_size=vocab_size,
-            d_model=model.d_model,
-            nhead=4,
-            num_layers=2,
-            dim_feedforward=128,
-            max_seq_len=model.max_seq_len
-        ).to(self.device)
-        self.target_network.load_state_dict(self.q_network.state_dict())
+        # Target network (deep copy of q_network)
+        import copy
+        self.target_network = copy.deepcopy(self.q_network)
         self.target_network.eval()
 
         self.optimizer = optim.Adam(self.q_network.parameters(), lr=learning_rate)
@@ -83,6 +78,7 @@ class DQNAgent:
         self.epsilon_decay = epsilon_decay
         self.batch_size = batch_size
         self.target_update_freq = target_update_freq
+        self.use_double_dqn = use_double_dqn
 
         # Replay buffer
         self.replay_buffer = deque(maxlen=buffer_size)
@@ -183,17 +179,33 @@ class DQNAgent:
 
         # Compute target Q-values
         with torch.no_grad():
-            next_q_values = self.target_network(next_states_tensor)  # (batch, max_seq_len, vocab_size)
+            if self.use_double_dqn:
+                # Double DQN: use q_network to select action, target_network to evaluate
+                next_q_values_online = self.q_network(next_states_tensor)  # (batch, max_seq_len, vocab_size)
+                next_q_values_target = self.target_network(next_states_tensor)  # (batch, max_seq_len, vocab_size)
 
-            # Get max Q-value for next state at its last position
-            max_next_q_values = torch.zeros(self.batch_size).to(self.device)
-            for i in range(self.batch_size):
-                # Position in next state
-                next_position = len(next_states[i]) - 1
-                # Only consider actions 0 and 1 (not sep token)
-                max_next_q_values[i] = torch.max(next_q_values[i, next_position, :2])
+                # Get Q-value for next state using Double DQN
+                max_next_q_values = torch.zeros(self.batch_size).to(self.device)
+                for i in range(self.batch_size):
+                    # Position in next state
+                    next_position = len(next_states[i]) - 1
+                    # Use q_network to select best action (only consider actions 0 and 1)
+                    best_action = torch.argmax(next_q_values_online[i, next_position, :2])
+                    # Use target_network to evaluate the Q-value of the selected action
+                    max_next_q_values[i] = next_q_values_target[i, next_position, best_action]
+            else:
+                # Standard DQN: use target_network for both selection and evaluation
+                next_q_values = self.target_network(next_states_tensor)  # (batch, max_seq_len, vocab_size)
 
-            # Compute target: r + gamma * max_Q(s', a') * (1 - done)
+                # Get max Q-value for next state at its last position
+                max_next_q_values = torch.zeros(self.batch_size).to(self.device)
+                for i in range(self.batch_size):
+                    # Position in next state
+                    next_position = len(next_states[i]) - 1
+                    # Only consider actions 0 and 1 (not sep token)
+                    max_next_q_values[i] = torch.max(next_q_values[i, next_position, :2])
+
+            # Compute target: r + gamma * Q_next(s', a') * (1 - done)
             target_q_values = rewards_tensor + self.gamma * max_next_q_values * (1 - dones_tensor)
 
         # Compute loss
@@ -249,6 +261,8 @@ def train_dqn(
     save_dir='checkpoints',
     save_freq=100,
     log_freq=10,
+    eval_freq=100,
+    eval_episodes=10,
     use_wandb=True
 ):
     """
@@ -262,6 +276,8 @@ def train_dqn(
         save_dir: Directory to save checkpoints
         save_freq: Save checkpoint every N episodes
         log_freq: Log statistics every N episodes
+        eval_freq: Evaluate agent every N episodes
+        eval_episodes: Number of episodes for each evaluation
         use_wandb: Whether to use wandb for logging
     """
     os.makedirs(save_dir, exist_ok=True)
@@ -292,11 +308,12 @@ def train_dqn(
             # Store transition
             agent.store_transition(state, action, reward, next_state, terminated)
 
-            # Train agent
-            loss = agent.train_step()
-            if loss is not None:
-                episode_loss_sum += loss
-                episode_loss_count += 1
+            # Train agent only if we have at least one batch of data
+            if len(agent.replay_buffer) >= agent.batch_size:
+                loss = agent.train_step()
+                if loss is not None:
+                    episode_loss_sum += loss
+                    episode_loss_count += 1
 
             # Update state
             state = next_state
@@ -313,7 +330,8 @@ def train_dqn(
             agent.update_target_network()
 
         # Decay epsilon
-        agent.update_epsilon()
+        if len(agent.replay_buffer) >= agent.batch_size:
+          agent.update_epsilon()
 
         # Track statistics
         episode_rewards.append(episode_reward)
@@ -354,6 +372,20 @@ def train_dqn(
                     f'avg_{log_freq}_reward': avg_reward,
                     f'avg_{log_freq}_accuracy': avg_accuracy,
                     f'avg_{log_freq}_loss': avg_loss
+                })
+
+        # Evaluate agent
+        if (episode + 1) % eval_freq == 0:
+            print(f"\n{'='*60}")
+            print(f"Evaluating at episode {episode + 1}...")
+            print(f"{'='*60}")
+            eval_accuracy = evaluate_agent(env, agent, num_episodes=eval_episodes, verbose=False)
+            print(f"Evaluation Accuracy: {eval_accuracy:.2%}")
+
+            if use_wandb:
+                wandb.log({
+                    'episode': episode + 1,
+                    'eval_accuracy': eval_accuracy
                 })
 
         # Save checkpoint
@@ -419,19 +451,22 @@ if __name__ == "__main__":
     print("=" * 60)
 
     # Configuration
-    SEQ_LENGTH = 10
+    SEQ_LENGTH = 50
     VOCAB_SIZE = 3
-    NUM_EPISODES = 1000
+    NUM_EPISODES = 30000
     LEARNING_RATE = 1e-4
     GAMMA = 0.99
     EPSILON_START = 1.0
-    EPSILON_END = 0.01
+    EPSILON_END = 0.1
     EPSILON_DECAY = 0.995
     BUFFER_SIZE = 10000
     BATCH_SIZE = 1024
     TARGET_UPDATE_FREQ = 10
-    SAVE_FREQ = 100
+    SAVE_FREQ = 1000000
     LOG_FREQ = 10
+    EVAL_FREQ = 50  # Evaluate every 50 episodes
+    EVAL_EPISODES = 100  # Number of episodes for each evaluation
+    USE_DOUBLE_DQN = False  # Set to False for standard DQN
 
     # Initialize wandb
     wandb.init(
@@ -448,6 +483,7 @@ if __name__ == "__main__":
             "buffer_size": BUFFER_SIZE,
             "batch_size": BATCH_SIZE,
             "target_update_freq": TARGET_UPDATE_FREQ,
+            "use_double_dqn": USE_DOUBLE_DQN,
             "architecture": "MiniTransformer",
             "d_model": 64,
             "nhead": 4,
@@ -455,8 +491,8 @@ if __name__ == "__main__":
             "dim_feedforward": 128,
             "max_seq_len": 128
         },
-        name=f"dqn-seqlen{SEQ_LENGTH}-ep{NUM_EPISODES}",
-        tags=["dqn", "transformer", "sequence-generation"]
+        name=f"{'ddqn' if USE_DOUBLE_DQN else 'dqn'}-seqlen{SEQ_LENGTH}-ep{NUM_EPISODES}--epsilon{EPSILON_END}",
+        tags=["dqn", "transformer", "sequence-generation"] + (["double-dqn"] if USE_DOUBLE_DQN else ["standard-dqn"])
     )
 
     # Create environment
@@ -506,6 +542,8 @@ if __name__ == "__main__":
         save_dir='checkpoints',
         save_freq=SAVE_FREQ,
         log_freq=LOG_FREQ,
+        eval_freq=EVAL_FREQ,
+        eval_episodes=EVAL_EPISODES,
         use_wandb=True
     )
 

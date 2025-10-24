@@ -1,0 +1,11 @@
+{"time":"2025-10-23T17:42:37.433473686Z","level":"INFO","msg":"stream: starting","core version":"0.22.2"}
+{"time":"2025-10-23T17:42:37.586791928Z","level":"INFO","msg":"stream: created new stream","id":"3bv9s76w"}
+{"time":"2025-10-23T17:42:37.586828494Z","level":"INFO","msg":"handler: started","stream_id":"3bv9s76w"}
+{"time":"2025-10-23T17:42:37.586887876Z","level":"INFO","msg":"stream: started","id":"3bv9s76w"}
+{"time":"2025-10-23T17:42:37.586907298Z","level":"INFO","msg":"writer: started","stream_id":"3bv9s76w"}
+{"time":"2025-10-23T17:42:37.586909921Z","level":"INFO","msg":"sender: started","stream_id":"3bv9s76w"}
+{"time":"2025-10-23T20:25:08.030322408Z","level":"INFO","msg":"api: retrying HTTP error","status":502,"url":"https://api.wandb.ai/files/dlwlrma314516-ustc/dqn-sequence-generation/3bv9s76w/file_stream","body":"\n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>502 Server Error</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Server Error</h1>\n<h2>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.</h2>\n<h2></h2>\n</body></html>\n"}
+{"time":"2025-10-23T20:35:26.657800805Z","level":"INFO","msg":"flowcontrol: backed up, offloading to disk","recordNumber":69161}
+{"time":"2025-10-23T20:35:53.01857329Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": context deadline exceeded"}
+{"time":"2025-10-23T20:36:25.14017118Z","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": net/http: request canceled (Client.Timeout exceeded while awaiting headers)"}
+{"time":"2025-10-23T20:36:30.108146265Z","level":"INFO","msg":"flowcontrol: unblocked","totalOffloaded":318}

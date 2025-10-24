@@ -1,0 +1,45 @@
+{
+  "os": "Linux-6.8.0-60-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.12.10",
+  "startedAt": "2025-10-23T14:38:44.054401Z",
+  "program": "/workspace/train_dqn.py",
+  "codePath": "train_dqn.py",
+  "codePathLocal": "train_dqn.py",
+  "git": {
+    "remote": "https://github.com/cjakfskvnad/miniproject.git",
+    "commit": "f340d39d8002bda22f5bb525ff68dfb68a3a4903"
+  },
+  "email": "dlwlrma314516@gmail.com",
+  "root": "/workspace",
+  "host": "f645f7aaf375",
+  "executable": "/usr/bin/python",
+  "cpu_count": 20,
+  "cpu_count_logical": 20,
+  "gpu": "0x74b5",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "747760488448",
+      "used": "699356483584"
+    }
+  },
+  "memory": {
+    "total": "253347164160"
+  },
+  "gpu_amd": [
+    {
+      "id": "0",
+      "uniqueId": "0x551140a962e549ae",
+      "vbiosVersion": "113-M3000100-103",
+      "performanceLevel": "auto",
+      "maxPower": "750.0",
+      "series": "0x74b5",
+      "model": "0x74b5",
+      "vendor": "Advanced Micro Devices, Inc. [AMD/ATI]",
+      "sku": "M3000100",
+      "sclkRange": "500Mhz - 2100Mhz",
+      "mclkRange": "900Mhz - 1300Mhz"
+    }
+  ],
+  "writerId": "ztjghjzjfy9rz7xh6md5c8qmflmh4295"
+}

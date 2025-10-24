@@ -1,0 +1,2732 @@
+
+Creating environment (sequence length = 50)...
+Creating Transformer model...
+Creating DQN agent...
+
+Total parameters: 67459
+Device: cuda
+
+Starting training for 30000 episodes...
+============================================================
+Training:   0%|                                                                               | 0/30000 [00:00<?, ?it/s]/workspace/train_dqn.py:300: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /app/pytorch/torch/csrc/utils/tensor_new.cpp:254.)
+  state_tensor = torch.tensor([state], dtype=torch.long)
+
+Episode 10/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 17
+
+Episode 20/30000
+  Avg Reward: 1.60/50
+  Avg Accuracy: 3.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 43
+
+Episode 30/30000
+  Avg Reward: 0.40/50
+  Avg Accuracy: 0.80%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 57
+
+Episode 40/30000
+  Avg Reward: 1.50/50
+  Avg Accuracy: 3.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 82
+
+Episode 50/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 99
+
+============================================================
+Evaluating at episode 50...
+============================================================
+
+Average Accuracy: 2.18%
+Evaluation Accuracy: 2.18%
+Training:   0%|                                                                    | 50/30000 [00:11<1:56:36,  4.28it/s]
+
+Episode 60/30000
+  Avg Reward: 0.80/50
+  Avg Accuracy: 1.60%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 117
+
+Episode 70/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 134
+
+Episode 80/30000
+  Avg Reward: 1.20/50
+  Avg Accuracy: 2.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 156
+
+Episode 90/30000
+  Avg Reward: 0.50/50
+  Avg Accuracy: 1.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 171
+
+Episode 100/30000
+  Avg Reward: 1.30/50
+  Avg Accuracy: 2.60%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 194
+
+============================================================
+Evaluating at episode 100...
+============================================================
+
+Average Accuracy: 2.08%
+Evaluation Accuracy: 2.08%
+
+Episode 110/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 215
+
+Episode 120/30000
+  Avg Reward: 1.00/50
+  Avg Accuracy: 2.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 235
+
+Episode 130/30000
+  Avg Reward: 1.90/50
+  Avg Accuracy: 3.80%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 264
+
+Episode 140/30000
+  Avg Reward: 1.50/50
+  Avg Accuracy: 3.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 289
+
+Episode 150/30000
+  Avg Reward: 0.60/50
+  Avg Accuracy: 1.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 305
+
+============================================================
+Evaluating at episode 150...
+============================================================
+
+Average Accuracy: 2.24%
+Evaluation Accuracy: 2.24%
+
+Episode 160/30000
+  Avg Reward: 1.00/50
+  Avg Accuracy: 2.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 325
+
+Episode 170/30000
+  Avg Reward: 0.90/50
+  Avg Accuracy: 1.80%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 344
+
+Episode 180/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 365
+
+Episode 190/30000
+  Avg Reward: 0.80/50
+  Avg Accuracy: 1.60%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 383
+
+Episode 200/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 400
+
+============================================================
+Evaluating at episode 200...
+============================================================
+
+Average Accuracy: 2.12%
+Evaluation Accuracy: 2.12%
+
+Episode 210/30000
+  Avg Reward: 2.10/50
+  Avg Accuracy: 4.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 431
+
+Episode 220/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 452
+
+Episode 230/30000
+  Avg Reward: 1.50/50
+  Avg Accuracy: 3.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 477
+
+Episode 240/30000
+  Avg Reward: 1.50/50
+  Avg Accuracy: 3.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 502
+
+Episode 250/30000
+  Avg Reward: 0.80/50
+  Avg Accuracy: 1.60%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 520
+
+============================================================
+Evaluating at episode 250...
+============================================================
+
+Average Accuracy: 2.32%
+Evaluation Accuracy: 2.32%
+
+Episode 260/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 537
+
+Episode 270/30000
+  Avg Reward: 1.60/50
+  Avg Accuracy: 3.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 563
+
+Episode 280/30000
+  Avg Reward: 1.60/50
+  Avg Accuracy: 3.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 589
+
+Episode 290/30000
+  Avg Reward: 0.40/50
+  Avg Accuracy: 0.80%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 603
+
+Episode 300/30000
+  Avg Reward: 2.10/50
+  Avg Accuracy: 4.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 634
+
+============================================================
+Evaluating at episode 300...
+============================================================
+
+Average Accuracy: 1.94%
+Evaluation Accuracy: 1.94%
+
+Episode 310/30000
+  Avg Reward: 0.50/50
+  Avg Accuracy: 1.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 649
+
+Episode 320/30000
+  Avg Reward: 0.60/50
+  Avg Accuracy: 1.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 665
+
+Episode 330/30000
+  Avg Reward: 1.20/50
+  Avg Accuracy: 2.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 687
+
+Episode 340/30000
+  Avg Reward: 1.60/50
+  Avg Accuracy: 3.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 713
+
+Episode 350/30000
+  Avg Reward: 1.90/50
+  Avg Accuracy: 3.80%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 742
+
+============================================================
+Evaluating at episode 350...
+============================================================
+
+Average Accuracy: 1.98%
+Evaluation Accuracy: 1.98%
+
+Episode 360/30000
+  Avg Reward: 1.20/50
+  Avg Accuracy: 2.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 764
+
+Episode 370/30000
+  Avg Reward: 0.60/50
+  Avg Accuracy: 1.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 780
+
+Episode 380/30000
+  Avg Reward: 0.80/50
+  Avg Accuracy: 1.60%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 798
+
+Episode 390/30000
+  Avg Reward: 0.60/50
+  Avg Accuracy: 1.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 814
+
+Episode 400/30000
+  Avg Reward: 1.60/50
+  Avg Accuracy: 3.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 840
+
+============================================================
+Evaluating at episode 400...
+============================================================
+
+Average Accuracy: 2.16%
+Evaluation Accuracy: 2.16%
+
+Episode 410/30000
+  Avg Reward: 1.60/50
+  Avg Accuracy: 3.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 866
+
+Episode 420/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 883
+
+Episode 430/30000
+  Avg Reward: 1.00/50
+  Avg Accuracy: 2.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 903
+
+Episode 440/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 924
+
+Episode 450/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 945
+
+============================================================
+Evaluating at episode 450...
+============================================================
+
+Average Accuracy: 2.04%
+Evaluation Accuracy: 2.04%
+
+Episode 460/30000
+  Avg Reward: 0.40/50
+  Avg Accuracy: 0.80%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 959
+
+Episode 470/30000
+  Avg Reward: 1.00/50
+  Avg Accuracy: 2.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 979
+
+Episode 480/30000
+  Avg Reward: 0.80/50
+  Avg Accuracy: 1.60%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 997
+
+Episode 490/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 1014
+
+Episode 500/30000
+  Avg Reward: 1.40/50
+  Avg Accuracy: 2.80%
+  Avg Loss: 0.6712
+  Epsilon: 0.9704
+  Buffer Size: 1038
+
+============================================================
+Evaluating at episode 500...
+============================================================
+
+Average Accuracy: 2.44%
+Evaluation Accuracy: 2.44%
+
+Episode 510/30000
+  Avg Reward: 0.30/50
+  Avg Accuracy: 0.60%
+  Avg Loss: 1.0759
+  Epsilon: 0.9229
+  Buffer Size: 1051
+
+Episode 520/30000
+  Avg Reward: 1.30/50
+  Avg Accuracy: 2.60%
+  Avg Loss: 0.9838
+  Epsilon: 0.8778
+  Buffer Size: 1074
+
+Episode 530/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 0.9985
+  Epsilon: 0.8349
+  Buffer Size: 1095
+
+Episode 540/30000
+  Avg Reward: 1.90/50
+  Avg Accuracy: 3.80%
+  Avg Loss: 1.1399
+  Epsilon: 0.7941
+  Buffer Size: 1124
+
+Episode 550/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 1.2359
+  Epsilon: 0.7553
+  Buffer Size: 1141
+
+============================================================
+Evaluating at episode 550...
+============================================================
+
+Average Accuracy: 2.54%
+Evaluation Accuracy: 2.54%
+
+Episode 560/30000
+  Avg Reward: 1.00/50
+  Avg Accuracy: 2.00%
+  Avg Loss: 1.2639
+  Epsilon: 0.7183
+  Buffer Size: 1161
+
+Episode 570/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 1.2930
+  Epsilon: 0.6832
+  Buffer Size: 1182
+
+Episode 580/30000
+  Avg Reward: 0.50/50
+  Avg Accuracy: 1.00%
+  Avg Loss: 1.3092
+  Epsilon: 0.6498
+  Buffer Size: 1197
+
+Episode 590/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 1.2872
+  Epsilon: 0.6180
+  Buffer Size: 1218
+
+Episode 600/30000
+  Avg Reward: 1.80/50
+  Avg Accuracy: 3.60%
+  Avg Loss: 1.2600
+  Epsilon: 0.5878
+  Buffer Size: 1246
+
+============================================================
+Evaluating at episode 600...
+============================================================
+
+Average Accuracy: 2.40%
+Evaluation Accuracy: 2.40%
+
+Episode 610/30000
+  Avg Reward: 1.10/50
+  Avg Accuracy: 2.20%
+  Avg Loss: 1.2533
+  Epsilon: 0.5591
+  Buffer Size: 1267
+
+Episode 620/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 1.2596
+  Epsilon: 0.5318
+  Buffer Size: 1284
+
+Episode 630/30000
+  Avg Reward: 0.70/50
+  Avg Accuracy: 1.40%
+  Avg Loss: 1.2593
+  Epsilon: 0.5058
+  Buffer Size: 1301
+
+Episode 640/30000
+  Avg Reward: 1.40/50
+  Avg Accuracy: 2.80%
+  Avg Loss: 1.2362
+  Epsilon: 0.4810
+  Buffer Size: 1325
+
+Episode 650/30000
+  Avg Reward: 0.40/50
+  Avg Accuracy: 0.80%
+  Avg Loss: 1.2337
+  Epsilon: 0.4575
+  Buffer Size: 1339
+
+============================================================
+Evaluating at episode 650...
+============================================================
+
+Average Accuracy: 2.56%
+Evaluation Accuracy: 2.56%
+
+Episode 660/30000
+  Avg Reward: 0.40/50
+  Avg Accuracy: 0.80%
+  Avg Loss: 1.2296
+  Epsilon: 0.4351
+  Buffer Size: 1353
+
+Episode 670/30000
+  Avg Reward: 1.20/50
+  Avg Accuracy: 2.40%
+  Avg Loss: 1.2447
+  Epsilon: 0.4139
+  Buffer Size: 1375
+
+Episode 680/30000
+  Avg Reward: 1.20/50
+  Avg Accuracy: 2.40%
+  Avg Loss: 1.2504
+  Epsilon: 0.3936
+  Buffer Size: 1397
+
+Episode 690/30000
+  Avg Reward: 0.90/50
+  Avg Accuracy: 1.80%
+  Avg Loss: 1.2485
+  Epsilon: 0.3744
+  Buffer Size: 1416
+
+Episode 700/30000
+  Avg Reward: 0.60/50
+  Avg Accuracy: 1.20%
+  Avg Loss: 1.2627
+  Epsilon: 0.3561
+  Buffer Size: 1432
+
+============================================================
+Evaluating at episode 700...
+============================================================
+
+Average Accuracy: 2.86%
+Evaluation Accuracy: 2.86%
+
+Episode 710/30000
+  Avg Reward: 1.40/50
+  Avg Accuracy: 2.80%
+  Avg Loss: 1.2154
+  Epsilon: 0.3387
+  Buffer Size: 1456
+
+Episode 720/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.7885
+  Epsilon: 0.3221
+  Buffer Size: 1497
+
+Episode 730/30000
+  Avg Reward: 2.20/50
+  Avg Accuracy: 4.40%
+  Avg Loss: 0.7763
+  Epsilon: 0.3064
+  Buffer Size: 1529
+
+Episode 740/30000
+  Avg Reward: 1.90/50
+  Avg Accuracy: 3.80%
+  Avg Loss: 0.8145
+  Epsilon: 0.2914
+  Buffer Size: 1558
+
+Episode 750/30000
+  Avg Reward: 1.80/50
+  Avg Accuracy: 3.60%
+  Avg Loss: 0.8357
+  Epsilon: 0.2771
+  Buffer Size: 1586
+
+============================================================
+Evaluating at episode 750...
+============================================================
+
+Average Accuracy: 5.36%
+Evaluation Accuracy: 5.36%
+
+Episode 760/30000
+  Avg Reward: 1.90/50
+  Avg Accuracy: 3.80%
+  Avg Loss: 0.8637
+  Epsilon: 0.2636
+  Buffer Size: 1615
+
+Episode 770/30000
+  Avg Reward: 1.80/50
+  Avg Accuracy: 3.60%
+  Avg Loss: 0.9366
+  Epsilon: 0.2507
+  Buffer Size: 1643
+
+Episode 780/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 0.9884
+  Epsilon: 0.2385
+  Buffer Size: 1679
+
+Episode 790/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 1.0129
+  Epsilon: 0.2268
+  Buffer Size: 1720
+
+Episode 800/30000
+  Avg Reward: 1.80/50
+  Avg Accuracy: 3.60%
+  Avg Loss: 1.0403
+  Epsilon: 0.2157
+  Buffer Size: 1748
+
+============================================================
+Evaluating at episode 800...
+============================================================
+
+Average Accuracy: 6.50%
+Evaluation Accuracy: 6.50%
+
+Episode 810/30000
+  Avg Reward: 2.40/50
+  Avg Accuracy: 4.80%
+  Avg Loss: 1.0965
+  Epsilon: 0.2052
+  Buffer Size: 1782
+
+Episode 820/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 1.1203
+  Epsilon: 0.1951
+  Buffer Size: 1818
+
+Episode 830/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 1.1469
+  Epsilon: 0.1856
+  Buffer Size: 1853
+
+Episode 840/30000
+  Avg Reward: 2.40/50
+  Avg Accuracy: 4.80%
+  Avg Loss: 1.2017
+  Epsilon: 0.1765
+  Buffer Size: 1887
+
+Episode 850/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 1.2432
+  Epsilon: 0.1679
+  Buffer Size: 1922
+
+============================================================
+Evaluating at episode 850...
+============================================================
+
+Average Accuracy: 5.96%
+Evaluation Accuracy: 5.96%
+
+Episode 860/30000
+  Avg Reward: 2.20/50
+  Avg Accuracy: 4.40%
+  Avg Loss: 1.2798
+  Epsilon: 0.1597
+  Buffer Size: 1954
+
+Episode 870/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 1.3328
+  Epsilon: 0.1519
+  Buffer Size: 1997
+
+Episode 880/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 1.3951
+  Epsilon: 0.1444
+  Buffer Size: 2038
+
+Episode 890/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 1.3981
+  Epsilon: 0.1374
+  Buffer Size: 2080
+
+Episode 900/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 1.5140
+  Epsilon: 0.1307
+  Buffer Size: 2115
+
+============================================================
+Evaluating at episode 900...
+============================================================
+
+Average Accuracy: 6.10%
+Evaluation Accuracy: 6.10%
+
+Episode 910/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 1.5647
+  Epsilon: 0.1243
+  Buffer Size: 2150
+
+Episode 920/30000
+  Avg Reward: 2.20/50
+  Avg Accuracy: 4.40%
+  Avg Loss: 1.5844
+  Epsilon: 0.1182
+  Buffer Size: 2182
+
+Episode 930/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 1.5947
+  Epsilon: 0.1124
+  Buffer Size: 2217
+
+Episode 940/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 1.6092
+  Epsilon: 0.1069
+  Buffer Size: 2262
+
+Episode 950/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 1.6562
+  Epsilon: 0.1017
+  Buffer Size: 2305
+
+============================================================
+Evaluating at episode 950...
+============================================================
+
+Average Accuracy: 5.30%
+Evaluation Accuracy: 5.30%
+
+Episode 960/30000
+  Avg Reward: 2.70/50
+  Avg Accuracy: 5.40%
+  Avg Loss: 1.6326
+  Epsilon: 0.1000
+  Buffer Size: 2342
+
+Episode 970/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 1.6688
+  Epsilon: 0.1000
+  Buffer Size: 2384
+
+Episode 980/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 1.6771
+  Epsilon: 0.1000
+  Buffer Size: 2424
+
+Episode 990/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 1.6341
+  Epsilon: 0.1000
+  Buffer Size: 2467
+
+Episode 1000/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 1.6887
+  Epsilon: 0.1000
+  Buffer Size: 2514
+
+============================================================
+Evaluating at episode 1000...
+============================================================
+
+Average Accuracy: 5.70%
+Evaluation Accuracy: 5.70%
+
+Episode 1010/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 1.7579
+  Epsilon: 0.1000
+  Buffer Size: 2550
+
+Episode 1020/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 1.7378
+  Epsilon: 0.1000
+  Buffer Size: 2588
+
+Episode 1030/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 1.8051
+  Epsilon: 0.1000
+  Buffer Size: 2638
+
+Episode 1040/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 1.7508
+  Epsilon: 0.1000
+  Buffer Size: 2685
+
+Episode 1050/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 1.8075
+  Epsilon: 0.1000
+  Buffer Size: 2721
+
+============================================================
+Evaluating at episode 1050...
+============================================================
+
+Average Accuracy: 6.16%
+Evaluation Accuracy: 6.16%
+
+Episode 1060/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 1.7647
+  Epsilon: 0.1000
+  Buffer Size: 2761
+
+Episode 1070/30000
+  Avg Reward: 2.00/50
+  Avg Accuracy: 4.00%
+  Avg Loss: 1.8036
+  Epsilon: 0.1000
+  Buffer Size: 2791
+
+Episode 1080/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 1.8177
+  Epsilon: 0.1000
+  Buffer Size: 2833
+
+Episode 1090/30000
+  Avg Reward: 2.70/50
+  Avg Accuracy: 5.40%
+  Avg Loss: 1.7923
+  Epsilon: 0.1000
+  Buffer Size: 2870
+
+Episode 1100/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 1.7883
+  Epsilon: 0.1000
+  Buffer Size: 2906
+
+============================================================
+Evaluating at episode 1100...
+============================================================
+
+Average Accuracy: 5.68%
+Evaluation Accuracy: 5.68%
+
+Episode 1110/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 1.7305
+  Epsilon: 0.1000
+  Buffer Size: 2944
+
+Episode 1120/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 1.6859
+  Epsilon: 0.1000
+  Buffer Size: 2982
+
+Episode 1130/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 1.6987
+  Epsilon: 0.1000
+  Buffer Size: 3030
+
+Episode 1140/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 1.6294
+  Epsilon: 0.1000
+  Buffer Size: 3075
+
+Episode 1150/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 1.5136
+  Epsilon: 0.1000
+  Buffer Size: 3122
+
+============================================================
+Evaluating at episode 1150...
+============================================================
+
+Average Accuracy: 6.68%
+Evaluation Accuracy: 6.68%
+
+Episode 1160/30000
+  Avg Reward: 2.40/50
+  Avg Accuracy: 4.80%
+  Avg Loss: 1.4376
+  Epsilon: 0.1000
+  Buffer Size: 3156
+
+Episode 1170/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 1.2741
+  Epsilon: 0.1000
+  Buffer Size: 3198
+
+Episode 1180/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 1.2228
+  Epsilon: 0.1000
+  Buffer Size: 3237
+
+Episode 1190/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 1.1682
+  Epsilon: 0.1000
+  Buffer Size: 3276
+
+Episode 1200/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 1.1036
+  Epsilon: 0.1000
+  Buffer Size: 3314
+
+============================================================
+Evaluating at episode 1200...
+============================================================
+
+Average Accuracy: 6.92%
+Evaluation Accuracy: 6.92%
+
+Episode 1210/30000
+  Avg Reward: 2.20/50
+  Avg Accuracy: 4.40%
+  Avg Loss: 1.0603
+  Epsilon: 0.1000
+  Buffer Size: 3346
+
+Episode 1220/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 1.0273
+  Epsilon: 0.1000
+  Buffer Size: 3389
+
+Episode 1230/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 0.9634
+  Epsilon: 0.1000
+  Buffer Size: 3425
+
+Episode 1240/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 0.9373
+  Epsilon: 0.1000
+  Buffer Size: 3463
+
+Episode 1250/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 0.9059
+  Epsilon: 0.1000
+  Buffer Size: 3505
+
+============================================================
+Evaluating at episode 1250...
+============================================================
+
+Average Accuracy: 7.64%
+Evaluation Accuracy: 7.64%
+
+Episode 1260/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 0.8197
+  Epsilon: 0.1000
+  Buffer Size: 3543
+
+Episode 1270/30000
+  Avg Reward: 2.20/50
+  Avg Accuracy: 4.40%
+  Avg Loss: 0.7972
+  Epsilon: 0.1000
+  Buffer Size: 3575
+
+Episode 1280/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.7719
+  Epsilon: 0.1000
+  Buffer Size: 3616
+
+Episode 1290/30000
+  Avg Reward: 2.70/50
+  Avg Accuracy: 5.40%
+  Avg Loss: 0.7310
+  Epsilon: 0.1000
+  Buffer Size: 3653
+
+Episode 1300/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 0.7055
+  Epsilon: 0.1000
+  Buffer Size: 3688
+
+============================================================
+Evaluating at episode 1300...
+============================================================
+
+Average Accuracy: 7.96%
+Evaluation Accuracy: 7.96%
+
+Episode 1310/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.7060
+  Epsilon: 0.1000
+  Buffer Size: 3731
+
+Episode 1320/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.6790
+  Epsilon: 0.1000
+  Buffer Size: 3779
+
+Episode 1330/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6997
+  Epsilon: 0.1000
+  Buffer Size: 3828
+
+Episode 1340/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.6683
+  Epsilon: 0.1000
+  Buffer Size: 3869
+
+Episode 1350/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6642
+  Epsilon: 0.1000
+  Buffer Size: 3909
+
+============================================================
+Evaluating at episode 1350...
+============================================================
+
+Average Accuracy: 7.96%
+Evaluation Accuracy: 7.96%
+
+Episode 1360/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6536
+  Epsilon: 0.1000
+  Buffer Size: 3959
+
+Episode 1370/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.6331
+  Epsilon: 0.1000
+  Buffer Size: 4005
+
+Episode 1380/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6311
+  Epsilon: 0.1000
+  Buffer Size: 4045
+
+Episode 1390/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6214
+  Epsilon: 0.1000
+  Buffer Size: 4088
+
+Episode 1400/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.6114
+  Epsilon: 0.1000
+  Buffer Size: 4141
+
+============================================================
+Evaluating at episode 1400...
+============================================================
+
+Average Accuracy: 8.86%
+Evaluation Accuracy: 8.86%
+
+Episode 1410/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.6093
+  Epsilon: 0.1000
+  Buffer Size: 4194
+
+Episode 1420/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6081
+  Epsilon: 0.1000
+  Buffer Size: 4239
+
+Episode 1430/30000
+  Avg Reward: 4.60/50
+  Avg Accuracy: 9.20%
+  Avg Loss: 0.5858
+  Epsilon: 0.1000
+  Buffer Size: 4295
+
+Episode 1440/30000
+  Avg Reward: 2.20/50
+  Avg Accuracy: 4.40%
+  Avg Loss: 0.6064
+  Epsilon: 0.1000
+  Buffer Size: 4327
+
+Episode 1450/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.6087
+  Epsilon: 0.1000
+  Buffer Size: 4379
+
+============================================================
+Evaluating at episode 1450...
+============================================================
+
+Average Accuracy: 8.54%
+Evaluation Accuracy: 8.54%
+
+Episode 1460/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.5996
+  Epsilon: 0.1000
+  Buffer Size: 4433
+
+Episode 1470/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 0.5788
+  Epsilon: 0.1000
+  Buffer Size: 4472
+
+Episode 1480/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.5934
+  Epsilon: 0.1000
+  Buffer Size: 4518
+
+Episode 1490/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.5836
+  Epsilon: 0.1000
+  Buffer Size: 4563
+
+Episode 1500/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.5863
+  Epsilon: 0.1000
+  Buffer Size: 4616
+
+============================================================
+Evaluating at episode 1500...
+============================================================
+
+Average Accuracy: 8.62%
+Evaluation Accuracy: 8.62%
+
+Episode 1510/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.5773
+  Epsilon: 0.1000
+  Buffer Size: 4659
+
+Episode 1520/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.5765
+  Epsilon: 0.1000
+  Buffer Size: 4709
+
+Episode 1530/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.5859
+  Epsilon: 0.1000
+  Buffer Size: 4755
+
+Episode 1540/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.5905
+  Epsilon: 0.1000
+  Buffer Size: 4798
+
+Episode 1550/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.5928
+  Epsilon: 0.1000
+  Buffer Size: 4851
+
+============================================================
+Evaluating at episode 1550...
+============================================================
+
+Average Accuracy: 8.50%
+Evaluation Accuracy: 8.50%
+
+Episode 1560/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6040
+  Epsilon: 0.1000
+  Buffer Size: 4900
+
+Episode 1570/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.5879
+  Epsilon: 0.1000
+  Buffer Size: 4951
+
+Episode 1580/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 0.5871
+  Epsilon: 0.1000
+  Buffer Size: 4990
+
+Episode 1590/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 0.6032
+  Epsilon: 0.1000
+  Buffer Size: 5032
+
+Episode 1600/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6199
+  Epsilon: 0.1000
+  Buffer Size: 5081
+
+============================================================
+Evaluating at episode 1600...
+============================================================
+
+Average Accuracy: 8.20%
+Evaluation Accuracy: 8.20%
+
+Episode 1610/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 0.6016
+  Epsilon: 0.1000
+  Buffer Size: 5120
+
+Episode 1620/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.5919
+  Epsilon: 0.1000
+  Buffer Size: 5171
+
+Episode 1630/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.5798
+  Epsilon: 0.1000
+  Buffer Size: 5225
+
+Episode 1640/30000
+  Avg Reward: 5.60/50
+  Avg Accuracy: 11.20%
+  Avg Loss: 0.5826
+  Epsilon: 0.1000
+  Buffer Size: 5291
+
+Episode 1650/30000
+  Avg Reward: 5.30/50
+  Avg Accuracy: 10.60%
+  Avg Loss: 0.6139
+  Epsilon: 0.1000
+  Buffer Size: 5354
+
+============================================================
+Evaluating at episode 1650...
+============================================================
+
+Average Accuracy: 8.44%
+Evaluation Accuracy: 8.44%
+
+Episode 1660/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6238
+  Epsilon: 0.1000
+  Buffer Size: 5397
+
+Episode 1670/30000
+  Avg Reward: 4.50/50
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.6191
+  Epsilon: 0.1000
+  Buffer Size: 5452
+
+Episode 1680/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6148
+  Epsilon: 0.1000
+  Buffer Size: 5495
+
+Episode 1690/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.6356
+  Epsilon: 0.1000
+  Buffer Size: 5541
+
+Episode 1700/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6351
+  Epsilon: 0.1000
+  Buffer Size: 5581
+
+============================================================
+Evaluating at episode 1700...
+============================================================
+
+Average Accuracy: 7.96%
+Evaluation Accuracy: 7.96%
+
+Episode 1710/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6702
+  Epsilon: 0.1000
+  Buffer Size: 5630
+
+Episode 1720/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6410
+  Epsilon: 0.1000
+  Buffer Size: 5670
+
+Episode 1730/30000
+  Avg Reward: 4.60/50
+  Avg Accuracy: 9.20%
+  Avg Loss: 0.6440
+  Epsilon: 0.1000
+  Buffer Size: 5726
+
+Episode 1740/30000
+  Avg Reward: 4.90/50
+  Avg Accuracy: 9.80%
+  Avg Loss: 0.6382
+  Epsilon: 0.1000
+  Buffer Size: 5785
+
+Episode 1750/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6510
+  Epsilon: 0.1000
+  Buffer Size: 5825
+
+============================================================
+Evaluating at episode 1750...
+============================================================
+
+Average Accuracy: 8.18%
+Evaluation Accuracy: 8.18%
+
+Episode 1760/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.6756
+  Epsilon: 0.1000
+  Buffer Size: 5871
+
+Episode 1770/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.6658
+  Epsilon: 0.1000
+  Buffer Size: 5925
+
+Episode 1780/30000
+  Avg Reward: 3.40/50
+  Avg Accuracy: 6.80%
+  Avg Loss: 0.6599
+  Epsilon: 0.1000
+  Buffer Size: 5969
+
+Episode 1790/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.6522
+  Epsilon: 0.1000
+  Buffer Size: 6023
+
+Episode 1800/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 0.6457
+  Epsilon: 0.1000
+  Buffer Size: 6062
+
+============================================================
+Evaluating at episode 1800...
+============================================================
+
+Average Accuracy: 8.14%
+Evaluation Accuracy: 8.14%
+
+Episode 1810/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 0.6678
+  Epsilon: 0.1000
+  Buffer Size: 6098
+
+Episode 1820/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6605
+  Epsilon: 0.1000
+  Buffer Size: 6138
+
+Episode 1830/30000
+  Avg Reward: 2.70/50
+  Avg Accuracy: 5.40%
+  Avg Loss: 0.6661
+  Epsilon: 0.1000
+  Buffer Size: 6175
+
+Episode 1840/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6775
+  Epsilon: 0.1000
+  Buffer Size: 6225
+
+Episode 1850/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6552
+  Epsilon: 0.1000
+  Buffer Size: 6270
+
+============================================================
+Evaluating at episode 1850...
+============================================================
+
+Average Accuracy: 9.60%
+Evaluation Accuracy: 9.60%
+
+Episode 1860/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.6529
+  Epsilon: 0.1000
+  Buffer Size: 6323
+
+Episode 1870/30000
+  Avg Reward: 2.10/50
+  Avg Accuracy: 4.20%
+  Avg Loss: 0.6850
+  Epsilon: 0.1000
+  Buffer Size: 6354
+
+Episode 1880/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 0.6374
+  Epsilon: 0.1000
+  Buffer Size: 6390
+
+Episode 1890/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6319
+  Epsilon: 0.1000
+  Buffer Size: 6440
+
+Episode 1900/30000
+  Avg Reward: 4.50/50
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.6403
+  Epsilon: 0.1000
+  Buffer Size: 6495
+
+============================================================
+Evaluating at episode 1900...
+============================================================
+
+Average Accuracy: 9.58%
+Evaluation Accuracy: 9.58%
+
+Episode 1910/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.6494
+  Epsilon: 0.1000
+  Buffer Size: 6548
+
+Episode 1920/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.6579
+  Epsilon: 0.1000
+  Buffer Size: 6596
+
+Episode 1930/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 0.6616
+  Epsilon: 0.1000
+  Buffer Size: 6635
+
+Episode 1940/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.6527
+  Epsilon: 0.1000
+  Buffer Size: 6676
+
+Episode 1950/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6467
+  Epsilon: 0.1000
+  Buffer Size: 6719
+
+============================================================
+Evaluating at episode 1950...
+============================================================
+
+Average Accuracy: 9.06%
+Evaluation Accuracy: 9.06%
+
+Episode 1960/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6493
+  Epsilon: 0.1000
+  Buffer Size: 6764
+
+Episode 1970/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6482
+  Epsilon: 0.1000
+  Buffer Size: 6814
+
+Episode 1980/30000
+  Avg Reward: 2.70/50
+  Avg Accuracy: 5.40%
+  Avg Loss: 0.6540
+  Epsilon: 0.1000
+  Buffer Size: 6851
+
+Episode 1990/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6416
+  Epsilon: 0.1000
+  Buffer Size: 6900
+
+Episode 2000/30000
+  Avg Reward: 5.70/50
+  Avg Accuracy: 11.40%
+  Avg Loss: 0.6450
+  Epsilon: 0.1000
+  Buffer Size: 6967
+
+============================================================
+Evaluating at episode 2000...
+============================================================
+
+Average Accuracy: 8.22%
+Evaluation Accuracy: 8.22%
+
+Episode 2010/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 0.6507
+  Epsilon: 0.1000
+  Buffer Size: 7014
+
+Episode 2020/30000
+  Avg Reward: 5.00/50
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.6646
+  Epsilon: 0.1000
+  Buffer Size: 7074
+
+Episode 2030/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6362
+  Epsilon: 0.1000
+  Buffer Size: 7119
+
+Episode 2040/30000
+  Avg Reward: 4.50/50
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.6473
+  Epsilon: 0.1000
+  Buffer Size: 7174
+
+Episode 2050/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6336
+  Epsilon: 0.1000
+  Buffer Size: 7219
+
+============================================================
+Evaluating at episode 2050...
+============================================================
+
+Average Accuracy: 9.06%
+Evaluation Accuracy: 9.06%
+
+Episode 2060/30000
+  Avg Reward: 2.70/50
+  Avg Accuracy: 5.40%
+  Avg Loss: 0.6479
+  Epsilon: 0.1000
+  Buffer Size: 7256
+
+Episode 2070/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6501
+  Epsilon: 0.1000
+  Buffer Size: 7305
+
+Episode 2080/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6374
+  Epsilon: 0.1000
+  Buffer Size: 7355
+
+Episode 2090/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6302
+  Epsilon: 0.1000
+  Buffer Size: 7398
+
+Episode 2100/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.6262
+  Epsilon: 0.1000
+  Buffer Size: 7446
+
+============================================================
+Evaluating at episode 2100...
+============================================================
+
+Average Accuracy: 9.06%
+Evaluation Accuracy: 9.06%
+
+Episode 2110/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6467
+  Epsilon: 0.1000
+  Buffer Size: 7486
+
+Episode 2120/30000
+  Avg Reward: 2.60/50
+  Avg Accuracy: 5.20%
+  Avg Loss: 0.6253
+  Epsilon: 0.1000
+  Buffer Size: 7522
+
+Episode 2130/30000
+  Avg Reward: 3.40/50
+  Avg Accuracy: 6.80%
+  Avg Loss: 0.6434
+  Epsilon: 0.1000
+  Buffer Size: 7566
+
+Episode 2140/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.6265
+  Epsilon: 0.1000
+  Buffer Size: 7607
+
+Episode 2150/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6246
+  Epsilon: 0.1000
+  Buffer Size: 7650
+
+============================================================
+Evaluating at episode 2150...
+============================================================
+
+Average Accuracy: 8.98%
+Evaluation Accuracy: 8.98%
+
+Episode 2160/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 0.6389
+  Epsilon: 0.1000
+  Buffer Size: 7697
+
+Episode 2170/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.6297
+  Epsilon: 0.1000
+  Buffer Size: 7748
+
+Episode 2180/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6180
+  Epsilon: 0.1000
+  Buffer Size: 7793
+
+Episode 2190/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.6198
+  Epsilon: 0.1000
+  Buffer Size: 7845
+
+Episode 2200/30000
+  Avg Reward: 4.50/50
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.6278
+  Epsilon: 0.1000
+  Buffer Size: 7900
+
+============================================================
+Evaluating at episode 2200...
+============================================================
+
+Average Accuracy: 8.30%
+Evaluation Accuracy: 8.30%
+
+Episode 2210/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.6344
+  Epsilon: 0.1000
+  Buffer Size: 7946
+
+Episode 2220/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.6343
+  Epsilon: 0.1000
+  Buffer Size: 7987
+
+Episode 2230/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6389
+  Epsilon: 0.1000
+  Buffer Size: 8037
+
+Episode 2240/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6373
+  Epsilon: 0.1000
+  Buffer Size: 8077
+
+Episode 2250/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6411
+  Epsilon: 0.1000
+  Buffer Size: 8122
+
+============================================================
+Evaluating at episode 2250...
+============================================================
+
+Average Accuracy: 7.94%
+Evaluation Accuracy: 7.94%
+
+Episode 2260/30000
+  Avg Reward: 4.60/50
+  Avg Accuracy: 9.20%
+  Avg Loss: 0.6465
+  Epsilon: 0.1000
+  Buffer Size: 8178
+
+Episode 2270/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6405
+  Epsilon: 0.1000
+  Buffer Size: 8221
+
+Episode 2280/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.6648
+  Epsilon: 0.1000
+  Buffer Size: 8269
+
+Episode 2290/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.6628
+  Epsilon: 0.1000
+  Buffer Size: 8318
+
+Episode 2300/30000
+  Avg Reward: 5.30/50
+  Avg Accuracy: 10.60%
+  Avg Loss: 0.6600
+  Epsilon: 0.1000
+  Buffer Size: 8381
+
+============================================================
+Evaluating at episode 2300...
+============================================================
+
+Average Accuracy: 8.68%
+Evaluation Accuracy: 8.68%
+
+Episode 2310/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.6576
+  Epsilon: 0.1000
+  Buffer Size: 8433
+
+Episode 2320/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.6836
+  Epsilon: 0.1000
+  Buffer Size: 8486
+
+Episode 2330/30000
+  Avg Reward: 5.00/50
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.6657
+  Epsilon: 0.1000
+  Buffer Size: 8546
+
+Episode 2340/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6633
+  Epsilon: 0.1000
+  Buffer Size: 8589
+
+Episode 2350/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.6641
+  Epsilon: 0.1000
+  Buffer Size: 8637
+
+============================================================
+Evaluating at episode 2350...
+============================================================
+
+Average Accuracy: 8.76%
+Evaluation Accuracy: 8.76%
+
+Episode 2360/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6587
+  Epsilon: 0.1000
+  Buffer Size: 8687
+
+Episode 2370/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.6566
+  Epsilon: 0.1000
+  Buffer Size: 8741
+
+Episode 2380/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6584
+  Epsilon: 0.1000
+  Buffer Size: 8791
+
+Episode 2390/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6627
+  Epsilon: 0.1000
+  Buffer Size: 8841
+
+Episode 2400/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.6723
+  Epsilon: 0.1000
+  Buffer Size: 8887
+
+============================================================
+Evaluating at episode 2400...
+============================================================
+
+Average Accuracy: 9.54%
+Evaluation Accuracy: 9.54%
+
+Episode 2410/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6706
+  Epsilon: 0.1000
+  Buffer Size: 8937
+
+Episode 2420/30000
+  Avg Reward: 5.00/50
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.6962
+  Epsilon: 0.1000
+  Buffer Size: 8997
+
+Episode 2430/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 0.6994
+  Epsilon: 0.1000
+  Buffer Size: 9044
+
+Episode 2440/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.6967
+  Epsilon: 0.1000
+  Buffer Size: 9098
+
+Episode 2450/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6917
+  Epsilon: 0.1000
+  Buffer Size: 9138
+
+============================================================
+Evaluating at episode 2450...
+============================================================
+
+Average Accuracy: 9.86%
+Evaluation Accuracy: 9.86%
+
+Episode 2460/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.7006
+  Epsilon: 0.1000
+  Buffer Size: 9183
+
+Episode 2470/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.7077
+  Epsilon: 0.1000
+  Buffer Size: 9236
+
+Episode 2480/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 0.7044
+  Epsilon: 0.1000
+  Buffer Size: 9283
+
+Episode 2490/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.6984
+  Epsilon: 0.1000
+  Buffer Size: 9329
+
+Episode 2500/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.7048
+  Epsilon: 0.1000
+  Buffer Size: 9381
+
+============================================================
+Evaluating at episode 2500...
+============================================================
+
+Average Accuracy: 9.22%
+Evaluation Accuracy: 9.22%
+
+Episode 2510/30000
+  Avg Reward: 5.00/50
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.6877
+  Epsilon: 0.1000
+  Buffer Size: 9441
+
+Episode 2520/30000
+  Avg Reward: 3.00/50
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.6769
+  Epsilon: 0.1000
+  Buffer Size: 9481
+
+Episode 2530/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.6639
+  Epsilon: 0.1000
+  Buffer Size: 9532
+
+Episode 2540/30000
+  Avg Reward: 3.40/50
+  Avg Accuracy: 6.80%
+  Avg Loss: 0.6640
+  Epsilon: 0.1000
+  Buffer Size: 9576
+
+Episode 2550/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6799
+  Epsilon: 0.1000
+  Buffer Size: 9621
+
+============================================================
+Evaluating at episode 2550...
+============================================================
+
+Average Accuracy: 9.04%
+Evaluation Accuracy: 9.04%
+
+Episode 2560/30000
+  Avg Reward: 2.30/50
+  Avg Accuracy: 4.60%
+  Avg Loss: 0.6429
+  Epsilon: 0.1000
+  Buffer Size: 9654
+
+Episode 2570/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.6538
+  Epsilon: 0.1000
+  Buffer Size: 9708
+
+Episode 2580/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.6668
+  Epsilon: 0.1000
+  Buffer Size: 9759
+
+Episode 2590/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6736
+  Epsilon: 0.1000
+  Buffer Size: 9809
+
+Episode 2600/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6717
+  Epsilon: 0.1000
+  Buffer Size: 9859
+
+============================================================
+Evaluating at episode 2600...
+============================================================
+
+Average Accuracy: 9.44%
+Evaluation Accuracy: 9.44%
+
+Episode 2610/30000
+  Avg Reward: 3.40/50
+  Avg Accuracy: 6.80%
+  Avg Loss: 0.6763
+  Epsilon: 0.1000
+  Buffer Size: 9903
+
+Episode 2620/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.6798
+  Epsilon: 0.1000
+  Buffer Size: 9955
+
+Episode 2630/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.6692
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2640/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.6777
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2650/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.6919
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2650...
+============================================================
+
+Average Accuracy: 9.32%
+Evaluation Accuracy: 9.32%
+
+Episode 2660/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.6729
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2670/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.6873
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2680/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6986
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2690/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.6890
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2700/30000
+  Avg Reward: 3.40/50
+  Avg Accuracy: 6.80%
+  Avg Loss: 0.7019
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2700...
+============================================================
+
+Average Accuracy: 9.20%
+Evaluation Accuracy: 9.20%
+
+Episode 2710/30000
+  Avg Reward: 4.50/50
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.7172
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2720/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.7077
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2730/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.7352
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2740/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.7197
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2750/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.7154
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2750...
+============================================================
+
+Average Accuracy: 8.44%
+Evaluation Accuracy: 8.44%
+
+Episode 2760/30000
+  Avg Reward: 3.20/50
+  Avg Accuracy: 6.40%
+  Avg Loss: 0.7381
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2770/30000
+  Avg Reward: 4.60/50
+  Avg Accuracy: 9.20%
+  Avg Loss: 0.7609
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2780/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.7508
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2790/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.7211
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2800/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.7357
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2800...
+============================================================
+
+Average Accuracy: 9.80%
+Evaluation Accuracy: 9.80%
+
+Episode 2810/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.7055
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2820/30000
+  Avg Reward: 3.40/50
+  Avg Accuracy: 6.80%
+  Avg Loss: 0.7248
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2830/30000
+  Avg Reward: 4.60/50
+  Avg Accuracy: 9.20%
+  Avg Loss: 0.7306
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2840/30000
+  Avg Reward: 4.70/50
+  Avg Accuracy: 9.40%
+  Avg Loss: 0.7332
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2850/30000
+  Avg Reward: 5.00/50
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.7418
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2850...
+============================================================
+
+Average Accuracy: 9.14%
+Evaluation Accuracy: 9.14%
+
+Episode 2860/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.7553
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2870/30000
+  Avg Reward: 5.60/50
+  Avg Accuracy: 11.20%
+  Avg Loss: 0.7753
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2880/30000
+  Avg Reward: 4.70/50
+  Avg Accuracy: 9.40%
+  Avg Loss: 0.7900
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2890/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.8128
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2900/30000
+  Avg Reward: 3.30/50
+  Avg Accuracy: 6.60%
+  Avg Loss: 0.7805
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2900...
+============================================================
+
+Average Accuracy: 9.10%
+Evaluation Accuracy: 9.10%
+
+Episode 2910/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 0.7910
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2920/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.8299
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2930/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.8130
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2940/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.8061
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2950/30000
+  Avg Reward: 4.60/50
+  Avg Accuracy: 9.20%
+  Avg Loss: 0.8374
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 2950...
+============================================================
+
+Average Accuracy: 9.36%
+Evaluation Accuracy: 9.36%
+
+Episode 2960/30000
+  Avg Reward: 5.10/50
+  Avg Accuracy: 10.20%
+  Avg Loss: 0.8424
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2970/30000
+  Avg Reward: 4.10/50
+  Avg Accuracy: 8.20%
+  Avg Loss: 0.8534
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2980/30000
+  Avg Reward: 6.00/50
+  Avg Accuracy: 12.00%
+  Avg Loss: 0.8536
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 2990/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.8602
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3000/30000
+  Avg Reward: 3.50/50
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.8674
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 3000...
+============================================================
+
+Average Accuracy: 9.10%
+Evaluation Accuracy: 9.10%
+
+Episode 3010/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 0.9013
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3020/30000
+  Avg Reward: 4.00/50
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.8942
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3030/30000
+  Avg Reward: 4.70/50
+  Avg Accuracy: 9.40%
+  Avg Loss: 0.8852
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3040/30000
+  Avg Reward: 3.10/50
+  Avg Accuracy: 6.20%
+  Avg Loss: 0.8912
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3050/30000
+  Avg Reward: 2.50/50
+  Avg Accuracy: 5.00%
+  Avg Loss: 0.9148
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 3050...
+============================================================
+
+Average Accuracy: 9.60%
+Evaluation Accuracy: 9.60%
+
+Episode 3060/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.9058
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3070/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.9143
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3080/30000
+  Avg Reward: 4.70/50
+  Avg Accuracy: 9.40%
+  Avg Loss: 0.9083
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3090/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.9279
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3100/30000
+  Avg Reward: 3.90/50
+  Avg Accuracy: 7.80%
+  Avg Loss: 0.8935
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 3100...
+============================================================
+
+Average Accuracy: 9.44%
+Evaluation Accuracy: 9.44%
+
+Episode 3110/30000
+  Avg Reward: 4.80/50
+  Avg Accuracy: 9.60%
+  Avg Loss: 0.9162
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3120/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.9137
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3130/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.9085
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3140/30000
+  Avg Reward: 3.80/50
+  Avg Accuracy: 7.60%
+  Avg Loss: 0.9051
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3150/30000
+  Avg Reward: 4.20/50
+  Avg Accuracy: 8.40%
+  Avg Loss: 0.9117
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 3150...
+============================================================
+
+Average Accuracy: 9.46%
+Evaluation Accuracy: 9.46%
+
+Episode 3160/30000
+  Avg Reward: 5.40/50
+  Avg Accuracy: 10.80%
+  Avg Loss: 0.9242
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3170/30000
+  Avg Reward: 3.60/50
+  Avg Accuracy: 7.20%
+  Avg Loss: 0.9189
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3180/30000
+  Avg Reward: 2.90/50
+  Avg Accuracy: 5.80%
+  Avg Loss: 0.8960
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3190/30000
+  Avg Reward: 4.30/50
+  Avg Accuracy: 8.60%
+  Avg Loss: 0.8918
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3200/30000
+  Avg Reward: 2.80/50
+  Avg Accuracy: 5.60%
+  Avg Loss: 0.9148
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+============================================================
+Evaluating at episode 3200...
+============================================================
+
+Average Accuracy: 9.24%
+Evaluation Accuracy: 9.24%
+
+Episode 3210/30000
+  Avg Reward: 3.70/50
+  Avg Accuracy: 7.40%
+  Avg Loss: 0.9018
+  Epsilon: 0.1000
+  Buffer Size: 10000
+
+Episode 3220/30000
+  Avg Reward: 4.40/50
+  Avg Accuracy: 8.80%
+  Avg Loss: 0.9176
+  Epsilon: 0.1000
+  Buffer Size: 10000
+Traceback (most recent call last):
+  File "/workspace/train_dqn.py", line 538, in <module>
+    rewards, accuracies, losses = train_dqn(
+                                  ^^^^^^^^^^
+  File "/workspace/train_dqn.py", line 313, in train_dqn
+    loss = agent.train_step()
+           ^^^^^^^^^^^^^^^^^^
+  File "/workspace/train_dqn.py", line 216, in train_step
+    loss.backward()
+  File "/usr/local/lib/python3.12/dist-packages/torch/_tensor.py", line 648, in backward
+    torch.autograd.backward(
+  File "/usr/local/lib/python3.12/dist-packages/torch/autograd/__init__.py", line 353, in backward
+    _engine_run_backward(
+  File "/usr/local/lib/python3.12/dist-packages/torch/autograd/graph.py", line 824, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

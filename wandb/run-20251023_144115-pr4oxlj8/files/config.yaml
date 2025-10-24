@@ -1,0 +1,94 @@
+_wandb:
+    value:
+        cli_version: 0.22.2
+        e:
+            lsra2pzcwq9u52we50hrlvo6kapffp0i:
+                codePath: train_dqn.py
+                codePathLocal: train_dqn.py
+                cpu_count: 20
+                cpu_count_logical: 20
+                disk:
+                    /:
+                        total: "747760488448"
+                        used: "699357306880"
+                email: dlwlrma314516@gmail.com
+                executable: /usr/bin/python
+                git:
+                    commit: f340d39d8002bda22f5bb525ff68dfb68a3a4903
+                    remote: https://github.com/cjakfskvnad/miniproject.git
+                gpu: "0x74b5"
+                gpu_amd:
+                    - id: "0"
+                      maxPower: "750.0"
+                      mclkRange: 900Mhz - 1300Mhz
+                      model: "0x74b5"
+                      performanceLevel: auto
+                      sclkRange: 500Mhz - 2100Mhz
+                      series: "0x74b5"
+                      sku: M3000100
+                      uniqueId: "0x551140a962e549ae"
+                      vbiosVersion: 113-M3000100-103
+                      vendor: Advanced Micro Devices, Inc. [AMD/ATI]
+                gpu_count: 1
+                host: 01178e2e6fed
+                memory:
+                    total: "253347164160"
+                os: Linux-6.8.0-60-generic-x86_64-with-glibc2.35
+                program: /workspace/train_dqn.py
+                python: CPython 3.12.10
+                root: /workspace
+                startedAt: "2025-10-23T14:41:15.302194Z"
+                writerId: lsra2pzcwq9u52we50hrlvo6kapffp0i
+        m: []
+        python_version: 3.12.10
+        t:
+            "1":
+                - 1
+                - 105
+            "2":
+                - 1
+                - 105
+            "3":
+                - 13
+                - 15
+                - 16
+            "4": 3.12.10
+            "5": 0.22.2
+            "12": 0.22.2
+            "13": linux-x86_64
+architecture:
+    value: MiniTransformer
+batch_size:
+    value: 1024
+buffer_size:
+    value: 10000
+d_model:
+    value: 64
+dim_feedforward:
+    value: 128
+epsilon_decay:
+    value: 0.995
+epsilon_end:
+    value: 0.1
+epsilon_start:
+    value: 1
+gamma:
+    value: 0.99
+learning_rate:
+    value: 0.0001
+max_seq_len:
+    value: 128
+nhead:
+    value: 4
+num_episodes:
+    value: 10000
+num_layers:
+    value: 2
+seq_length:
+    value: 10
+target_update_freq:
+    value: 10
+use_double_dqn:
+    value: false
+vocab_size:
+    value: 3

@@ -1,13 +1,115 @@
 import torch
 import torch.nn as nn
 import math
+from flash_attn import flash_attn_func
+
+
+class FlashAttentionBlock(nn.Module):
+    """
+    Transformer block using Flash Attention for efficient self-attention
+    """
+    def __init__(self, d_model, nhead, dim_feedforward, dropout=0.1):
+        super(FlashAttentionBlock, self).__init__()
+
+        self.d_model = d_model
+        self.nhead = nhead
+        self.head_dim = d_model // nhead
+
+        assert d_model % nhead == 0, "d_model must be divisible by nhead"
+
+        # Q, K, V projections
+        self.qkv_proj = nn.Linear(d_model, 3 * d_model)
+
+        # Output projection
+        self.out_proj = nn.Linear(d_model, d_model)
+
+        # Feed-forward network
+        self.ff = nn.Sequential(
+            nn.Linear(d_model, dim_feedforward),
+            nn.ReLU(),
+            nn.Linear(dim_feedforward, d_model)
+        )
+
+        # Layer normalization
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+
+        # Dropout
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x, causal=True):
+        """
+        Args:
+            x: input tensor of shape (batch_size, seq_len, d_model)
+            causal: whether to use causal masking for autoregressive generation
+        Returns:
+            output tensor of shape (batch_size, seq_len, d_model)
+        """
+        batch_size, seq_len, d_model = x.shape
+
+        # Self-attention with residual connection
+        residual = x
+        x = self.norm1(x)
+
+        # Project to Q, K, V
+        qkv = self.qkv_proj(x)  # (batch, seq_len, 3 * d_model)
+        qkv = qkv.reshape(batch_size, seq_len, 3, self.nhead, self.head_dim)
+        qkv = qkv.permute(2, 0, 3, 1, 4)  # (3, batch, nhead, seq_len, head_dim)
+        q, k, v = qkv[0], qkv[1], qkv[2]
+
+        # Flash Attention expects (batch, seq_len, nhead, head_dim)
+        q = q.transpose(1, 2)  # (batch, seq_len, nhead, head_dim)
+        k = k.transpose(1, 2)
+        v = v.transpose(1, 2)
+
+        # Flash Attention only supports fp16 and bf16
+        # Store original dtype and convert
+        orig_dtype = q.dtype
+        if orig_dtype not in (torch.float16, torch.bfloat16):
+            # Use bf16 if available (better for training), otherwise fp16
+            if torch.cuda.is_available() and torch.cuda.is_bf16_supported():
+                target_dtype = torch.bfloat16
+            else:
+                target_dtype = torch.float16
+
+            q = q.to(target_dtype)
+            k = k.to(target_dtype)
+            v = v.to(target_dtype)
+        else:
+            target_dtype = orig_dtype
+
+        # Apply Flash Attention
+        attn_output = flash_attn_func(q, k, v, causal=causal)
+
+        # Convert back to original dtype if needed
+        if target_dtype != orig_dtype:
+            attn_output = attn_output.to(orig_dtype)
+
+        # Reshape back to (batch, seq_len, d_model)
+        attn_output = attn_output.reshape(batch_size, seq_len, d_model)
+
+        # Output projection
+        attn_output = self.out_proj(attn_output)
+        attn_output = self.dropout(attn_output)
+
+        # Add residual
+        x = residual + attn_output
+
+        # Feed-forward with residual connection
+        residual = x
+        x = self.norm2(x)
+        ff_output = self.ff(x)
+        ff_output = self.dropout(ff_output)
+        x = residual + ff_output
+
+        return x
 
 
 class MiniTransformer(nn.Module):
     """
     A minimal Decoder-only Transformer model (GPT-style) with 3-token vocabulary: 0, 1, sep
     """
-    def __init__(self, vocab_size=3, d_model=64, nhead=4, num_layers=2, dim_feedforward=128, max_seq_len=128):
+    def __init__(self, vocab_size=3, d_model=64, nhead=4, num_layers=2, dim_feedforward=128, max_seq_len=128, dropout=0.1):
         super(MiniTransformer, self).__init__()
 
         self.vocab_size = vocab_size
@@ -20,14 +122,14 @@ class MiniTransformer(nn.Module):
         # Positional encoding
         self.pos_encoding = PositionalEncoding(d_model, max_seq_len)
 
-        # Transformer decoder (decoder-only architecture)
-        decoder_layer = nn.TransformerDecoderLayer(
-            d_model=d_model,
-            nhead=nhead,
-            dim_feedforward=dim_feedforward,
-            batch_first=True
-        )
-        self.transformer_decoder = nn.TransformerDecoder(decoder_layer, num_layers=num_layers)
+        # Transformer blocks with Flash Attention
+        self.blocks = nn.ModuleList([
+            FlashAttentionBlock(d_model, nhead, dim_feedforward, dropout)
+            for _ in range(num_layers)
+        ])
+
+        # Final layer norm
+        self.ln_f = nn.LayerNorm(d_model)
 
         # Output projection
         self.fc_out = nn.Linear(d_model, vocab_size)
@@ -53,12 +155,12 @@ class MiniTransformer(nn.Module):
         x = self.embedding(x) * math.sqrt(self.d_model)
         x = self.pos_encoding(x)
 
-        # Generate causal mask for autoregressive decoding
-        causal_mask = self.generate_causal_mask(seq_len).to(x.device)
+        # Apply Flash Attention blocks (causal masking is handled inside)
+        for block in self.blocks:
+            x = block(x, causal=True)
 
-        # Transformer decoding (self-attention with causal mask)
-        # In decoder-only model, we use the same input as both tgt and memory
-        x = self.transformer_decoder(x, x, tgt_mask=causal_mask)
+        # Final layer norm
+        x = self.ln_f(x)
 
         # Output projection
         output = self.fc_out(x)

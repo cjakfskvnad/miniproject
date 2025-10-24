@@ -1,0 +1,400 @@
+
+Creating environment (sequence length = 10)...
+Creating Transformer model...
+Creating DQN agent...
+
+Total parameters: 100867
+Device: cuda
+
+Starting training for 10000 episodes...
+============================================================
+Training:   0%|                                                                               | 0/10000 [00:00<?, ?it/s]/workspace/train_dqn.py:295: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /app/pytorch/torch/csrc/utils/tensor_new.cpp:254.)
+  state_tensor = torch.tensor([state], dtype=torch.long)
+
+Episode 10/10000
+  Avg Reward: 1.50/10
+  Avg Accuracy: 15.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 25
+
+Episode 20/10000
+  Avg Reward: 0.70/10
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 42
+
+Episode 30/10000
+  Avg Reward: 1.20/10
+  Avg Accuracy: 12.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 64
+
+Episode 40/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 83
+
+Episode 50/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 102
+
+Episode 60/10000
+  Avg Reward: 1.10/10
+  Avg Accuracy: 11.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 123
+
+Episode 70/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 142
+
+Episode 80/10000
+  Avg Reward: 0.70/10
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 159
+
+Episode 90/10000
+  Avg Reward: 1.10/10
+  Avg Accuracy: 11.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 180
+
+Episode 100/10000
+  Avg Reward: 0.80/10
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 198
+Agent saved to checkpoints/agent_episode_100.pt
+
+Episode 110/10000
+  Avg Reward: 1.40/10
+  Avg Accuracy: 14.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 222
+
+Episode 120/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 241
+
+Episode 130/10000
+  Avg Reward: 1.00/10
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 261
+
+Episode 140/10000
+  Avg Reward: 1.10/10
+  Avg Accuracy: 11.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 282
+
+Episode 150/10000
+  Avg Reward: 1.10/10
+  Avg Accuracy: 11.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 303
+
+Episode 160/10000
+  Avg Reward: 1.90/10
+  Avg Accuracy: 19.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 331
+
+Episode 170/10000
+  Avg Reward: 1.30/10
+  Avg Accuracy: 13.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 354
+
+Episode 180/10000
+  Avg Reward: 1.60/10
+  Avg Accuracy: 16.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 380
+
+Episode 190/10000
+  Avg Reward: 0.70/10
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 397
+
+Episode 200/10000
+  Avg Reward: 0.60/10
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 413
+Agent saved to checkpoints/agent_episode_200.pt
+
+Episode 210/10000
+  Avg Reward: 0.70/10
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 430
+
+Episode 220/10000
+  Avg Reward: 1.30/10
+  Avg Accuracy: 13.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 453
+
+Episode 230/10000
+  Avg Reward: 1.30/10
+  Avg Accuracy: 13.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 476
+
+Episode 240/10000
+  Avg Reward: 0.80/10
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 494
+
+Episode 250/10000
+  Avg Reward: 1.20/10
+  Avg Accuracy: 12.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 516
+Training:   2%|█▋                                                                 | 250/10000 [00:00<00:03, 2478.99it/s]
+
+Episode 260/10000
+  Avg Reward: 1.00/10
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 536
+
+Episode 270/10000
+  Avg Reward: 0.40/10
+  Avg Accuracy: 4.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 550
+
+Episode 280/10000
+  Avg Reward: 2.30/10
+  Avg Accuracy: 23.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 583
+
+Episode 290/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 602
+
+Episode 300/10000
+  Avg Reward: 1.60/10
+  Avg Accuracy: 16.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 628
+Agent saved to checkpoints/agent_episode_300.pt
+
+Episode 310/10000
+  Avg Reward: 1.00/10
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 648
+
+Episode 320/10000
+  Avg Reward: 1.00/10
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 668
+
+Episode 330/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 687
+
+Episode 340/10000
+  Avg Reward: 1.00/10
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 707
+
+Episode 350/10000
+  Avg Reward: 0.80/10
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 725
+
+Episode 360/10000
+  Avg Reward: 0.40/10
+  Avg Accuracy: 4.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 739
+
+Episode 370/10000
+  Avg Reward: 1.10/10
+  Avg Accuracy: 11.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 760
+
+Episode 380/10000
+  Avg Reward: 0.80/10
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 778
+
+Episode 390/10000
+  Avg Reward: 0.70/10
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 795
+
+Episode 400/10000
+  Avg Reward: 1.40/10
+  Avg Accuracy: 14.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 819
+Agent saved to checkpoints/agent_episode_400.pt
+
+Episode 410/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 838
+
+Episode 420/10000
+  Avg Reward: 0.60/10
+  Avg Accuracy: 6.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 854
+
+Episode 430/10000
+  Avg Reward: 2.00/10
+  Avg Accuracy: 20.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 884
+
+Episode 440/10000
+  Avg Reward: 0.90/10
+  Avg Accuracy: 9.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 903
+
+Episode 450/10000
+  Avg Reward: 0.50/10
+  Avg Accuracy: 5.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 918
+
+Episode 460/10000
+  Avg Reward: 1.00/10
+  Avg Accuracy: 10.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 938
+
+Episode 470/10000
+  Avg Reward: 0.50/10
+  Avg Accuracy: 5.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 953
+
+Episode 480/10000
+  Avg Reward: 0.80/10
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 971
+
+Episode 490/10000
+  Avg Reward: 1.40/10
+  Avg Accuracy: 14.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 995
+
+Episode 500/10000
+  Avg Reward: 1.10/10
+  Avg Accuracy: 11.00%
+  Avg Loss: 0.0000
+  Epsilon: 1.0000
+  Buffer Size: 1016
+Agent saved to checkpoints/agent_episode_500.pt
+
+Episode 510/10000
+  Avg Reward: 0.70/10
+  Avg Accuracy: 7.00%
+  Avg Loss: 0.4549
+  Epsilon: 0.9704
+  Buffer Size: 1033
+
+Episode 520/10000
+  Avg Reward: 0.80/10
+  Avg Accuracy: 8.00%
+  Avg Loss: 0.8816
+  Epsilon: 0.9229
+  Buffer Size: 1051
+
+Episode 530/10000
+  Avg Reward: 0.40/10
+  Avg Accuracy: 4.00%
+  Avg Loss: 0.9473
+  Epsilon: 0.8778
+  Buffer Size: 1065
+Traceback (most recent call last):
+  File "/workspace/train_dqn.py", line 517, in <module>
+    rewards, accuracies, losses = train_dqn(
+                                  ^^^^^^^^^^
+  File "/workspace/train_dqn.py", line 308, in train_dqn
+    loss = agent.train_step()
+           ^^^^^^^^^^^^^^^^^^
+  File "/workspace/train_dqn.py", line 177, in train_step
+    current_q_values[i] = q_values[i, position, actions_tensor[i]]
+    ~~~~~~~~~~~~~~~~^^^
+KeyboardInterrupt
