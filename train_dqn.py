@@ -12,6 +12,190 @@ from env.sequence_env import SequenceGenerationEnv
 from model.mini_transformer import MiniTransformer
 
 
+class SumTree:
+    """
+    SumTree data structure for efficient prioritized sampling.
+    This is a binary tree where each node stores the sum of its children.
+    """
+
+    def __init__(self, capacity):
+        """
+        Args:
+            capacity: Maximum number of elements in the tree
+        """
+        self.capacity = capacity
+        self.tree = np.zeros(2 * capacity - 1)  # Internal nodes + leaf nodes
+        self.data = np.zeros(capacity, dtype=object)  # Stores actual data
+        self.data_pointer = 0
+        self.n_entries = 0
+
+    def add(self, priority, data):
+        """Add a new element with given priority"""
+        tree_idx = self.data_pointer + self.capacity - 1
+
+        # Store data
+        self.data[self.data_pointer] = data
+
+        # Update tree
+        self.update(tree_idx, priority)
+
+        # Increment pointer
+        self.data_pointer = (self.data_pointer + 1) % self.capacity
+
+        if self.n_entries < self.capacity:
+            self.n_entries += 1
+
+    def update(self, tree_idx, priority):
+        """Update priority of a leaf node and propagate change upward"""
+        change = priority - self.tree[tree_idx]
+        self.tree[tree_idx] = priority
+
+        # Propagate change up the tree
+        while tree_idx != 0:
+            tree_idx = (tree_idx - 1) // 2
+            self.tree[tree_idx] += change
+
+    def get(self, s):
+        """
+        Get leaf index, priority, and data for a given cumulative sum.
+
+        Args:
+            s: Cumulative sum value to search for
+
+        Returns:
+            leaf_idx: Index in the tree
+            priority: Priority value
+            data: Stored data
+        """
+        parent_idx = 0
+
+        while True:
+            left_child_idx = 2 * parent_idx + 1
+            right_child_idx = left_child_idx + 1
+
+            # If we reach bottom, we're done
+            if left_child_idx >= len(self.tree):
+                leaf_idx = parent_idx
+                break
+
+            # Descend to left or right child
+            if s <= self.tree[left_child_idx]:
+                parent_idx = left_child_idx
+            else:
+                s -= self.tree[left_child_idx]
+                parent_idx = right_child_idx
+
+        data_idx = leaf_idx - self.capacity + 1
+        return leaf_idx, self.tree[leaf_idx], self.data[data_idx]
+
+    def total_priority(self):
+        """Return total priority (sum of all priorities)"""
+        return self.tree[0]
+
+    def max_priority(self):
+        """Return maximum priority in the tree"""
+        return np.max(self.tree[-self.capacity:])
+
+
+class PrioritizedReplayBuffer:
+    """
+    Prioritized Experience Replay buffer using SumTree.
+
+    Paper: "Prioritized Experience Replay" by Schaul et al. (2016)
+    """
+
+    def __init__(self, capacity, alpha=0.6, beta_start=0.4, beta_frames=100000):
+        """
+        Args:
+            capacity: Maximum buffer size
+            alpha: How much prioritization to use (0 = uniform, 1 = full prioritization)
+            beta_start: Initial importance sampling weight (0 = no correction, 1 = full correction)
+            beta_frames: Number of frames to anneal beta to 1.0
+        """
+        self.tree = SumTree(capacity)
+        self.capacity = capacity
+        self.alpha = alpha
+        self.beta_start = beta_start
+        self.beta_frames = beta_frames
+        self.frame = 1
+        self.epsilon = 1e-6  # Small constant to avoid zero priority
+
+    def _get_beta(self):
+        """Get current beta value (annealed from beta_start to 1.0)"""
+        return min(1.0, self.beta_start + self.frame * (1.0 - self.beta_start) / self.beta_frames)
+
+    def add(self, state, action, reward, next_state, done):
+        """Add experience to buffer with maximum priority"""
+        # New experiences get maximum priority
+        max_priority = self.tree.max_priority()
+        if max_priority == 0:
+            max_priority = 1.0
+
+        experience = (state, action, reward, next_state, done)
+        self.tree.add(max_priority, experience)
+
+    def sample(self, batch_size):
+        """
+        Sample a batch of experiences based on priorities.
+
+        Returns:
+            batch: List of experiences
+            indices: Indices in the tree (for updating priorities)
+            weights: Importance sampling weights
+        """
+        batch = []
+        indices = []
+        priorities = []
+
+        # Divide priority range into batch_size segments
+        segment = self.tree.total_priority() / batch_size
+
+        beta = self._get_beta()
+        self.frame += 1
+
+        # Sample from each segment
+        for i in range(batch_size):
+            a = segment * i
+            b = segment * (i + 1)
+
+            s = random.uniform(a, b)
+            idx, priority, data = self.tree.get(s)
+
+            batch.append(data)
+            indices.append(idx)
+            priorities.append(priority)
+
+        # Calculate importance sampling weights
+        priorities = np.array(priorities)
+        # Probability of sampling = priority / total_priority
+        sampling_probabilities = priorities / self.tree.total_priority()
+
+        # Importance sampling weight = (1 / (N * P(i))) ^ beta
+        weights = np.power(self.tree.n_entries * sampling_probabilities, -beta)
+
+        # Normalize weights by max weight for stability
+        weights = weights / weights.max()
+
+        return batch, indices, weights
+
+    def update_priorities(self, indices, td_errors):
+        """
+        Update priorities based on TD errors.
+
+        Args:
+            indices: Tree indices to update
+            td_errors: TD errors for computing priorities
+        """
+        for idx, td_error in zip(indices, td_errors):
+            # Priority = |TD error| ^ alpha
+            priority = (abs(td_error) + self.epsilon) ** self.alpha
+            self.tree.update(idx, priority)
+
+    def __len__(self):
+        """Return current size of buffer"""
+        return self.tree.n_entries
+
+
 
 # Enable debugpy for remote debugging
 # debugpy.listen(("localhost", 5678))
@@ -36,7 +220,11 @@ class DQNAgent:
         buffer_size=10000,
         batch_size=32,
         target_update_freq=10,
-        use_double_dqn=True
+        use_double_dqn=True,
+        use_per=False,
+        per_alpha=0.6,
+        per_beta_start=0.4,
+        per_beta_frames=100000
     ):
         """
         Args:
@@ -51,6 +239,10 @@ class DQNAgent:
             batch_size: Batch size for training
             target_update_freq: Frequency to update target network (in episodes)
             use_double_dqn: Whether to use Double DQN (default: True)
+            use_per: Whether to use Prioritized Experience Replay (default: False)
+            per_alpha: PER alpha parameter (0 = uniform, 1 = full prioritization)
+            per_beta_start: Initial PER beta for importance sampling
+            per_beta_frames: Number of frames to anneal beta to 1.0
         """
         # Use MPS (Metal Performance Shaders) for Mac, CUDA for NVIDIA, else CPU
         if torch.backends.mps.is_available():
@@ -79,9 +271,18 @@ class DQNAgent:
         self.batch_size = batch_size
         self.target_update_freq = target_update_freq
         self.use_double_dqn = use_double_dqn
+        self.use_per = use_per
 
-        # Replay buffer
-        self.replay_buffer = deque(maxlen=buffer_size)
+        # Replay buffer (PER or standard)
+        if use_per:
+            self.replay_buffer = PrioritizedReplayBuffer(
+                capacity=buffer_size,
+                alpha=per_alpha,
+                beta_start=per_beta_start,
+                beta_frames=per_beta_frames
+            )
+        else:
+            self.replay_buffer = deque(maxlen=buffer_size)
 
         # Training stats
         self.episode_count = 0
@@ -120,7 +321,10 @@ class DQNAgent:
 
     def store_transition(self, state, action, reward, next_state, done):
         """Store transition in replay buffer"""
-        self.replay_buffer.append((state, action, reward, next_state, done))
+        if self.use_per:
+            self.replay_buffer.add(state, action, reward, next_state, done)
+        else:
+            self.replay_buffer.append((state, action, reward, next_state, done))
 
     def train_step(self):
         """Perform one training step using experience replay"""
@@ -128,7 +332,13 @@ class DQNAgent:
             return None
 
         # Sample batch from replay buffer
-        batch = random.sample(self.replay_buffer, self.batch_size)
+        if self.use_per:
+            batch, indices, weights = self.replay_buffer.sample(self.batch_size)
+            weights = torch.tensor(weights, dtype=torch.float32).to(self.device)
+        else:
+            batch = random.sample(self.replay_buffer, self.batch_size)
+            indices = None
+            weights = None
 
         # Prepare batch data (states are now numpy arrays of fixed length)
         states = []
@@ -208,14 +418,27 @@ class DQNAgent:
             # Compute target: r + gamma * Q_next(s', a') * (1 - done)
             target_q_values = rewards_tensor + self.gamma * max_next_q_values * (1 - dones_tensor)
 
-        # Compute loss
-        loss = self.loss_fn(current_q_values, target_q_values)
+        # Compute TD errors (for PER priority update)
+        td_errors = target_q_values - current_q_values
+
+        # Compute loss (with importance sampling weights if using PER)
+        if self.use_per:
+            # Element-wise loss weighted by importance sampling weights
+            element_wise_loss = torch.nn.functional.mse_loss(current_q_values, target_q_values, reduction='none')
+            loss = torch.mean(element_wise_loss * weights)
+        else:
+            loss = self.loss_fn(current_q_values, target_q_values)
 
         # Optimize
         self.optimizer.zero_grad()
         loss.backward()
         torch.nn.utils.clip_grad_norm_(self.q_network.parameters(), max_norm=1.0)
         self.optimizer.step()
+
+        # Update priorities in PER buffer
+        if self.use_per:
+            td_errors_np = td_errors.detach().cpu().numpy()
+            self.replay_buffer.update_priorities(indices, td_errors_np)
 
         self.train_step_count += 1
 
@@ -453,7 +676,7 @@ if __name__ == "__main__":
     # Configuration
     SEQ_LENGTH = 50
     VOCAB_SIZE = 3
-    NUM_EPISODES = 30000
+    NUM_EPISODES = 300000
     LEARNING_RATE = 1e-4
     GAMMA = 0.99
     EPSILON_START = 1.0
@@ -466,7 +689,13 @@ if __name__ == "__main__":
     LOG_FREQ = 10
     EVAL_FREQ = 50  # Evaluate every 50 episodes
     EVAL_EPISODES = 100  # Number of episodes for each evaluation
-    USE_DOUBLE_DQN = False  # Set to False for standard DQN
+    USE_DOUBLE_DQN = True  # Set to False for standard DQN
+
+    # Prioritized Experience Replay settings
+    USE_PER = True  # Enable Prioritized Experience Replay
+    PER_ALPHA = 0.6  # Prioritization exponent (0 = uniform, 1 = full prioritization)
+    PER_BETA_START = 0.4  # Initial importance sampling weight
+    PER_BETA_FRAMES = 100000  # Frames to anneal beta to 1.0
 
     # Initialize wandb
     wandb.init(
@@ -484,6 +713,10 @@ if __name__ == "__main__":
             "batch_size": BATCH_SIZE,
             "target_update_freq": TARGET_UPDATE_FREQ,
             "use_double_dqn": USE_DOUBLE_DQN,
+            "use_per": USE_PER,
+            "per_alpha": PER_ALPHA,
+            "per_beta_start": PER_BETA_START,
+            "per_beta_frames": PER_BETA_FRAMES,
             "architecture": "MiniTransformer",
             "d_model": 64,
             "nhead": 4,
@@ -491,8 +724,8 @@ if __name__ == "__main__":
             "dim_feedforward": 128,
             "max_seq_len": 128
         },
-        name=f"{'ddqn' if USE_DOUBLE_DQN else 'dqn'}-seqlen{SEQ_LENGTH}-ep{NUM_EPISODES}--epsilon{EPSILON_END}",
-        tags=["dqn", "transformer", "sequence-generation"] + (["double-dqn"] if USE_DOUBLE_DQN else ["standard-dqn"])
+        name=f"{'ddqn' if USE_DOUBLE_DQN else 'dqn'}{'_per' if USE_PER else ''}-seqlen{SEQ_LENGTH}-ep{NUM_EPISODES}--epsilon{EPSILON_END}",
+        tags=["dqn", "transformer", "sequence-generation"] + (["double-dqn"] if USE_DOUBLE_DQN else ["standard-dqn"]) + (["per"] if USE_PER else [])
     )
 
     # Create environment
@@ -522,7 +755,12 @@ if __name__ == "__main__":
         epsilon_decay=EPSILON_DECAY,
         buffer_size=BUFFER_SIZE,
         batch_size=BATCH_SIZE,
-        target_update_freq=TARGET_UPDATE_FREQ
+        target_update_freq=TARGET_UPDATE_FREQ,
+        use_double_dqn=USE_DOUBLE_DQN,
+        use_per=USE_PER,
+        per_alpha=PER_ALPHA,
+        per_beta_start=PER_BETA_START,
+        per_beta_frames=PER_BETA_FRAMES
     )
 
     total_params = sum(p.numel() for p in agent.q_network.parameters())
