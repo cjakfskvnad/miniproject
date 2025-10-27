@@ -31,4 +31,4 @@ python train_dqn.py --config configs/n50.yaml
 ```
 
 ### Find Some Run Logs Here!
-https://api.wandb.ai/links/dlwlrma314516-ustc/epp5ugka
+https://wandb.ai/dlwlrma314516-ustc/dqn-seq-gen-runs?nw=nwuserdlwlrma314516
