@@ -1,1 +1,0 @@
-{"episode":536,"episode_loss":0.8566034237543741,"avg_10_loss":0.9472890665133795,"_wandb":{"runtime":37},"episode_reward":2,"avg_10_accuracy":0.04,"epsilon":0.851801859600347,"episode_accuracy":0.2,"_step":588,"buffer_size":1079,"_runtime":37,"steps":3,"_timestamp":1.7612298927242522e+09,"avg_10_reward":0.4}

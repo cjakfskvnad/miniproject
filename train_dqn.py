@@ -7,6 +7,8 @@ import random
 import os
 from tqdm import tqdm
 import wandb
+import yaml
+import argparse
 
 from env.sequence_env import SequenceGenerationEnv
 from model.mini_transformer import MiniTransformer
@@ -224,8 +226,7 @@ class DQNAgent:
         use_per=False,
         per_alpha=0.6,
         per_beta_start=0.4,
-        per_beta_frames=100000,
-        n_step=3
+        per_beta_frames=100000
     ):
         """
         Args:
@@ -244,7 +245,6 @@ class DQNAgent:
             per_alpha: PER alpha parameter (0 = uniform, 1 = full prioritization)
             per_beta_start: Initial PER beta for importance sampling
             per_beta_frames: Number of frames to anneal beta to 1.0
-            n_step: Number of steps for n-step returns (1 = standard TD)
         """
         # Use MPS (Metal Performance Shaders) for Mac, CUDA for NVIDIA, else CPU
         if torch.backends.mps.is_available():
@@ -274,7 +274,6 @@ class DQNAgent:
         self.target_update_freq = target_update_freq
         self.use_double_dqn = use_double_dqn
         self.use_per = use_per
-        self.n_step = n_step
 
         # Replay buffer (PER or standard)
         if use_per:
@@ -286,9 +285,6 @@ class DQNAgent:
             )
         else:
             self.replay_buffer = deque(maxlen=buffer_size)
-
-        # N-step buffer for computing n-step returns
-        self.n_step_buffer = deque(maxlen=n_step)
 
         # Training stats
         self.episode_count = 0
@@ -390,60 +386,12 @@ class DQNAgent:
 
         return actions
 
-    def _get_n_step_info(self):
-        """
-        Calculate n-step return and get n-step transition.
-
-        Returns:
-            state: Initial state
-            action: Initial action
-            n_step_reward: Sum of discounted rewards
-            next_state: State after n steps
-            done: Whether episode ended
-        """
-        # Get the first transition
-        state, action = self.n_step_buffer[0][:2]
-
-        # Calculate n-step discounted reward
-        n_step_reward = 0
-        for i, (_, _, reward, _, _) in enumerate(self.n_step_buffer):
-            n_step_reward += (self.gamma ** i) * reward
-
-        # Get the last transition's next_state and done
-        _, _, _, next_state, done = self.n_step_buffer[-1]
-
-        return state, action, n_step_reward, next_state, done
-
     def store_transition(self, state, action, reward, next_state, done):
-        """Store transition in replay buffer using n-step returns"""
-        # Add to n-step buffer
-        self.n_step_buffer.append((state, action, reward, next_state, done))
-
-        # Only store in main buffer when we have n transitions or episode ends
-        if len(self.n_step_buffer) == self.n_step or done:
-            # Get n-step transition
-            n_state, n_action, n_reward, n_next_state, n_done = self._get_n_step_info()
-
-            # Store in main replay buffer
-            if self.use_per:
-                self.replay_buffer.add(n_state, n_action, n_reward, n_next_state, n_done)
-            else:
-                self.replay_buffer.append((n_state, n_action, n_reward, n_next_state, n_done))
-
-        # If episode ends, flush remaining transitions in n_step_buffer
-        if done:
-            # Store all remaining transitions with their respective n-step returns
-            while len(self.n_step_buffer) > 1:
-                self.n_step_buffer.popleft()
-                if len(self.n_step_buffer) > 0:
-                    n_state, n_action, n_reward, n_next_state, n_done = self._get_n_step_info()
-                    if self.use_per:
-                        self.replay_buffer.add(n_state, n_action, n_reward, n_next_state, n_done)
-                    else:
-                        self.replay_buffer.append((n_state, n_action, n_reward, n_next_state, n_done))
-
-            # Clear n-step buffer for next episode
-            self.n_step_buffer.clear()
+        """Store transition in replay buffer"""
+        if self.use_per:
+            self.replay_buffer.add(state, action, reward, next_state, done)
+        else:
+            self.replay_buffer.append((state, action, reward, next_state, done))
 
     def train_step(self):
         """Perform one training step using experience replay"""
@@ -588,14 +536,14 @@ class DQNAgent:
         checkpoint = torch.load(filepath, map_location=self.device)
         self.q_network.load_state_dict(checkpoint['q_network'])
         self.target_network.load_state_dict(checkpoint['target_network'])
-        self.optimizer.load_state_dict(checkpoint['optimizer'])
-        self.epsilon = checkpoint['epsilon']
-        self.episode_count = checkpoint['episode_count']
-        self.train_step_count = checkpoint['train_step_count']
+        # self.optimizer.load_state_dict(checkpoint['optimizer'])
+        # self.epsilon = checkpoint['epsilon']
+        # self.episode_count = checkpoint['episode_count']
+        # self.train_step_count = checkpoint['train_step_count']
         print(f"Agent loaded from {filepath}")
 
 
-def train_dqn(
+def train_dqn_multiworker(
     env: SequenceGenerationEnv,
     agent: DQNAgent,
     num_episodes=1000,
@@ -787,6 +735,155 @@ def train_dqn(
     agent.save(final_save_path)
 
     return episode_rewards, episode_accuracies, episode_losses
+def train_dqn_episode_level(
+    env: SequenceGenerationEnv,
+    agent :DQNAgent,
+    num_episodes=1000,
+    max_steps_per_episode=None,
+    save_dir='checkpoints',
+    save_freq=100,
+    log_freq=10,
+    eval_freq=100,
+    eval_episodes=10,
+    use_wandb=True
+):
+    """
+    Train DQN agent.
+
+    Args:
+        env: Gym environment
+        agent: DQN agent
+        num_episodes: Number of training episodes
+        max_steps_per_episode: Maximum steps per episode (None = env default)
+        save_dir: Directory to save checkpoints
+        save_freq: Save checkpoint every N episodes
+        log_freq: Log statistics every N episodes
+        eval_freq: Evaluate agent every N episodes
+        eval_episodes: Number of episodes for each evaluation
+        use_wandb: Whether to use wandb for logging
+    """
+    os.makedirs(save_dir, exist_ok=True)
+
+    episode_rewards = []
+    episode_accuracies = []
+    episode_losses = []
+
+    for episode in tqdm(range(num_episodes), desc="Training"):
+        state, info = env.reset()  # state is now [target, sep, generated]
+
+        episode_reward = 0
+        episode_loss_sum = 0
+        episode_loss_count = 0
+        terminated = False
+        step_count = 0
+
+        while not terminated:
+            # Get current state tensor (already contains target + sep + generated)
+            state_tensor = torch.tensor([state], dtype=torch.long)
+
+            # Select action
+            action = agent.select_action(state_tensor)
+
+            # Take action in environment
+            next_state, reward, terminated, truncated, info = env.step(action)
+
+            # Store transition
+            agent.store_transition(state, action, reward, next_state, terminated)
+
+            # Train agent only if we have at least one batch of data
+            # if len(agent.replay_buffer) >= agent.batch_size:
+            #     loss = agent.train_step()
+            #     if loss is not None:
+            #         episode_loss_sum += loss
+            #         episode_loss_count += 1
+
+            # Update state
+            state = next_state
+            episode_reward += reward
+            step_count += 1
+
+            # Check if max steps reached
+            if max_steps_per_episode and step_count >= max_steps_per_episode:
+                break
+
+        # Update target network periodically
+        agent.episode_count += 1
+        if agent.episode_count % agent.target_update_freq == 0:
+            agent.update_target_network()
+        if len(agent.replay_buffer) >= agent.batch_size:
+            loss = agent.train_step()
+            if loss is not None:
+                episode_loss_sum += loss
+                episode_loss_count += 1
+        # Decay epsilon
+        if len(agent.replay_buffer) >= agent.batch_size:
+          agent.update_epsilon()
+
+        # Track statistics
+        episode_rewards.append(episode_reward)
+        accuracy = episode_reward / env.seq_length
+        episode_accuracies.append(accuracy)
+
+        avg_loss = episode_loss_sum / episode_loss_count if episode_loss_count > 0 else 0
+        episode_losses.append(avg_loss)
+
+        # Log to wandb
+        if use_wandb:
+            wandb.log({
+                'episode': episode + 1,
+                'episode_reward': episode_reward,
+                'episode_accuracy': accuracy,
+                'episode_loss': avg_loss,
+                'epsilon': agent.epsilon,
+                'buffer_size': len(agent.replay_buffer),
+                'steps': step_count
+            })
+
+        # Log progress
+        if (episode + 1) % log_freq == 0:
+            avg_reward = np.mean(episode_rewards[-log_freq:])
+            avg_accuracy = np.mean(episode_accuracies[-log_freq:])
+            avg_loss = np.mean(episode_losses[-log_freq:])
+
+            print(f"\nEpisode {episode + 1}/{num_episodes}")
+            print(f"  Avg Reward: {avg_reward:.2f}/{env.seq_length}")
+            print(f"  Avg Accuracy: {avg_accuracy:.2%}")
+            print(f"  Avg Loss: {avg_loss:.4f}")
+            print(f"  Epsilon: {agent.epsilon:.4f}")
+            print(f"  Buffer Size: {len(agent.replay_buffer)}")
+
+            # Log aggregated metrics to wandb
+            if use_wandb:
+                wandb.log({
+                    f'avg_{log_freq}_reward': avg_reward,
+                    f'avg_{log_freq}_accuracy': avg_accuracy,
+                    f'avg_{log_freq}_loss': avg_loss
+                })
+
+        # Evaluate agent
+        if (episode + 1) % eval_freq == 0:
+            print(f"\n{'='*60}")
+            print(f"Evaluating at episode {episode + 1}...")
+            print(f"{'='*60}")
+            eval_accuracy = evaluate_agent(env, agent, num_episodes=eval_episodes, verbose=False)
+            print(f"Evaluation Accuracy: {eval_accuracy:.2%}")
+
+            if use_wandb:
+                wandb.log({
+                    'episode': episode + 1,
+                    'eval_accuracy': eval_accuracy
+                })
+
+        # Save checkpoint
+        if (episode + 1) % save_freq == 0:
+            save_path = os.path.join(save_dir, f'agent_episode_{episode + 1}.pt')
+            agent.save(save_path)
+
+    # Save final model
+    final_save_path = os.path.join(save_dir, 'agent_final.pt')
+    agent.save(final_save_path)
+
+    return episode_rewards, episode_accuracies, episode_losses
 
 
 def evaluate_agent(env, agent, num_episodes=10, verbose=True):
@@ -834,45 +931,77 @@ def evaluate_agent(env, agent, num_episodes=10, verbose=True):
     return avg_accuracy
 
 
+def load_config(config_path):
+    """
+    Load configuration from YAML file.
+
+    Args:
+        config_path: Path to YAML configuration file
+
+    Returns:
+        Dictionary containing configuration parameters
+    """
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+    return config
+
+
 if __name__ == "__main__":
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Train DQN agent for sequence generation')
+    parser.add_argument('--config', type=str, default='config.yaml',
+                        help='Path to configuration file (default: config.yaml)')
+    args = parser.parse_args()
+
+    # Load configuration
     print("=" * 60)
     print("DQN Training for Sequence Generation")
     print("=" * 60)
+    print(f"\nLoading configuration from: {args.config}")
+    config = load_config(args.config)
+    print("Configuration loaded successfully!")
 
-    # Configuration
-    SEQ_LENGTH = 50
-    VOCAB_SIZE = 3
-    NUM_EPISODES = 300000000
-    LEARNING_RATE = 1e-4
-    GAMMA = 0.99
-    EPSILON_START = 1.0
-    BUFFER_SIZE = 10000
-    BATCH_SIZE = 1024
-    
-    SAVE_FREQ = 10000
-    LOG_FREQ = 10
-    EVAL_FREQ = 50  # Evaluate every 50 episodes
-    EVAL_EPISODES = 100 
-     # Number of episodes for each evaluation
+    # Extract configuration values
+    SEQ_LENGTH = config['seq_length']
+    VOCAB_SIZE = config['vocab_size']
+    NUM_EPISODES = config['num_episodes']
+    LEARNING_RATE = config['learning_rate']
+    GAMMA = config['gamma']
 
-    USE_DOUBLE_DQN = True  # Set to False for standard DQN
-    TARGET_UPDATE_FREQ = 100
-    ENV_BATCH_SIZE = 1  # Number of parallel environments
-    TRAIN_STEPS_PER_ITER = 1  
-    EPSILON_END = 0.1
-    EPSILON_DECAY = 0.995# Number of training steps per iteration
+    BUFFER_SIZE = config['buffer_size']
+    BATCH_SIZE = config['batch_size']
+
+    SAVE_FREQ = config['save_freq']
+    LOG_FREQ = config['log_freq']
+    EVAL_FREQ = config['eval_freq']
+    EVAL_EPISODES = config['eval_episodes']
+
+    USE_DOUBLE_DQN = config['use_double_dqn']
+    TARGET_UPDATE_FREQ = config['target_update_freq']
+    ENV_BATCH_SIZE = config['env_batch_size']
+    TRAIN_STEPS_PER_ITER = config['train_steps_per_iter']
+
+    EPSILON_START = config['epsilon_start']
+    EPSILON_END = config['epsilon_end']
+    EPSILON_DECAY = config['epsilon_decay']
 
     # Prioritized Experience Replay settings
-    USE_PER = True  # Enable Prioritized Experience Replay
-    PER_ALPHA = 0.6  # Prioritization exponent (0 = uniform, 1 = full prioritization)
-    PER_BETA_START = 0.4  # Initial importance sampling weight
-    PER_BETA_FRAMES = 100000  # Frames to anneal beta to 1.0
+    USE_PER = config['use_per']
+    PER_ALPHA = config['per_alpha']
+    PER_BETA_START = config['per_beta_start']
+    PER_BETA_FRAMES = config['per_beta_frames']
 
-    NUM_LAYER = 8
-    NHEAD = 8
+    NUM_LAYER = config['num_layer']
+    NHEAD = config['nhead']
 
-    # N-step learning settings
-    N_STEP = 1  # Number of steps for n-step returns (1 = standard TD, 3-5 recommended)
+    N_STEP = config['n_step']
+
+    EPISODE_LEVEL_TRAINING = config['episode_level_training']
+    MULTIWORKER_TRAINING = config['multiworker_training']
+
+    RESUME_CHECKPOINT = config.get('resume_checkpoint', None)
+    if RESUME_CHECKPOINT == "" or RESUME_CHECKPOINT == "null":
+        RESUME_CHECKPOINT = None
 
     # Initialize wandb
     wandb.init(
@@ -894,7 +1023,6 @@ if __name__ == "__main__":
             "per_alpha": PER_ALPHA,
             "per_beta_start": PER_BETA_START,
             "per_beta_frames": PER_BETA_FRAMES,
-            "n_step": N_STEP,
             "env_batch_size": ENV_BATCH_SIZE,
             "train_steps_per_iter": TRAIN_STEPS_PER_ITER,
             "architecture": "MiniTransformer",
@@ -904,8 +1032,8 @@ if __name__ == "__main__":
             "dim_feedforward": 128,
             "max_seq_len": 128
         },
-        name=f"{'ddqn' if USE_DOUBLE_DQN else 'dqn'}{'_per' if USE_PER else ''}_n{N_STEP}-seqlen{SEQ_LENGTH}-ep{NUM_EPISODES}--epsilon{EPSILON_END}--update{TARGET_UPDATE_FREQ}--envBATCH{ENV_BATCH_SIZE}--trainstep{TRAIN_STEPS_PER_ITER}---numlayer{NUM_LAYER}--nhead{NHEAD}",
-        tags=["dqn", "transformer", "sequence-generation"] + (["double-dqn"] if USE_DOUBLE_DQN else ["standard-dqn"]) + (["per"] if USE_PER else []) + ([f"n-step-{N_STEP}"] if N_STEP > 1 else [])
+        name=f"{'ddqn' if USE_DOUBLE_DQN else 'dqn'}{'_per' if USE_PER else ''}_n{1}-seqlen{SEQ_LENGTH}-ep{NUM_EPISODES}--epsilon{EPSILON_END}--update{TARGET_UPDATE_FREQ}--envBATCH{ENV_BATCH_SIZE}--trainstep{TRAIN_STEPS_PER_ITER}---numlayer{NUM_LAYER}--nhead{NHEAD}",
+        tags=["dqn", "transformer", "sequence-generation"] + (["double-dqn"] if USE_DOUBLE_DQN else ["standard-dqn"]) + (["per"] if USE_PER else []) + ([f"n-step-{ N_STEP}"] if N_STEP > 1 else [])
     )
 
     # Create save directory based on wandb run name
@@ -945,20 +1073,32 @@ if __name__ == "__main__":
         per_alpha=PER_ALPHA,
         per_beta_start=PER_BETA_START,
         per_beta_frames=PER_BETA_FRAMES,
-        n_step=N_STEP
+
     )
 
     total_params = sum(p.numel() for p in agent.q_network.parameters())
     print(f"\nTotal parameters: {total_params}")
     print(f"Device: {agent.device}")
 
-
+    # Load pretrained weights if specified
+    if RESUME_CHECKPOINT is not None:
+        import os
+        if os.path.exists(RESUME_CHECKPOINT):
+            print(f"\n{'='*60}")
+            print(f"Loading model from checkpoint: {RESUME_CHECKPOINT}")
+            agent.load(RESUME_CHECKPOINT)
+            print(f"Model loaded successfully!")
+            print(f"{'='*60}\n")
+        else:
+            print(f"\n⚠️  WARNING: Checkpoint not found: {RESUME_CHECKPOINT}")
+            print(f"Training from scratch...\n")
 
     # Train
     print(f"\nStarting training for {NUM_EPISODES} episodes...")
     print("=" * 60)
 
-    rewards, accuracies, losses = train_dqn(
+    if MULTIWORKER_TRAINING:
+        rewards, accuracies, losses = train_dqn_multiworker(
         env=env,
         agent=agent,
         num_episodes=NUM_EPISODES,
@@ -970,6 +1110,18 @@ if __name__ == "__main__":
         use_wandb=True,
         env_batch_size=ENV_BATCH_SIZE,
         train_steps_per_iter=TRAIN_STEPS_PER_ITER
+    )
+    else:
+        rewards, accuracies, losses = train_dqn_episode_level(
+        env=env,
+        agent=agent,
+        num_episodes=NUM_EPISODES,
+        save_dir=save_dir,
+        save_freq=SAVE_FREQ,
+        log_freq=LOG_FREQ,
+        eval_freq=EVAL_FREQ,
+        eval_episodes=EVAL_EPISODES,
+        use_wandb=True
     )
 
     # Evaluate

@@ -1,0 +1,51 @@
+# DQN Training Configuration
+
+# Environment settings
+seq_length: 5
+vocab_size: 3
+
+# Training settings
+num_episodes: 300000000
+learning_rate: 1.0e-4
+gamma: 0.99
+
+# Replay buffer settings
+buffer_size: 10000
+batch_size: 1024
+
+# Logging and checkpointing
+save_freq: 10000
+log_freq: 10
+eval_freq: 50
+eval_episodes: 100
+
+# DQN settings
+use_double_dqn: false
+target_update_freq: 10
+
+# Multi-environment training
+env_batch_size: 32
+train_steps_per_iter: 1
+
+# Exploration settings
+epsilon_start: 1
+epsilon_end: 0.01
+epsilon_decay: 0.995
+
+# Prioritized Experience Replay settings
+use_per: true
+per_alpha: 0.6
+per_beta_start: 0.4
+per_beta_frames: 100000
+
+# Model architecture
+num_layer: 32
+nhead: 16
+
+
+# N-step learning
+n_step: 1
+
+# Training mode
+episode_level_training: false
+multiworker_training: true

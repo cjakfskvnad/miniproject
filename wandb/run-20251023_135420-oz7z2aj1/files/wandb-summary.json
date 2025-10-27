@@ -1,1 +1,0 @@
-{"steps":9,"buffer_size":3464,"_wandb":{"runtime":342},"epsilon":0.01,"_runtime":342,"avg_10_loss":0.6294513538408847,"_timestamp":1.7612280037144072e+09,"episode_accuracy":0.8,"_step":1100,"avg_10_accuracy":0.4600000000000001,"avg_10_reward":4.6,"episode_reward":8,"episode":1000,"episode_loss":0.6404545505841573,"final_evaluation_accuracy":0.7}

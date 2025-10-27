@@ -1,1 +1,10 @@
 checkpoints
+wandb
+wandb_export
+
+*.json
+*.png
+
+node_modules
+.vscode
+.claude
